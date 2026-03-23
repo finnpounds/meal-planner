@@ -1,6 +1,8 @@
 // POST /api/generate-plan
 // Accepts UserInputs, builds Groq prompt with injected price table, returns MealPlan + validation
 
+export const maxDuration = 60; // Vercel hobby tier max: 60s
+
 import { NextRequest, NextResponse } from 'next/server';
 import { buildSystemPrompt, callGroq, parseJSON } from '@/lib/groq';
 import { calcNutritionTarget } from '@/lib/nutrition';
