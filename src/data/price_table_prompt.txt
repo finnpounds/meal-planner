@@ -1,0 +1,21 @@
+Use ONLY these US grocery prices (USDA ERS 2023 / BLS CPI Feb 2026) when estimating meal costs. Prices are national averages.
+
+FRUIT: apples $1.86/lb | bananas $0.65/lb | blueberries $5.13/lb | blueberries frozen $4.20/lb | cantaloupe $0.79/lb | clementines $1.59/lb | grapes $2.25/lb | honeydew $1.25/lb | kiwi $2.83/lb | mangoes $1.46/lb | nectarines $2.48/lb | oranges $1.44/lb | peaches $2.07/lb | pears $1.92/lb | pineapple $0.67/lb | plums $2.66/lb | raspberries $7.97/lb | strawberries $3.08/lb | strawberries frozen $3.47/lb | watermelon $0.41/lb | raisins $4.33/lb | dried dates $5.89/lb
+
+VEGETABLES: asparagus $3.21/lb | avocados $2.26/lb | broccoli $3.02/lb | broccoli frozen $2.57/lb | brussels sprouts $3.04/lb | cabbage $0.83/lb | carrots $1.01/lb | cauliflower $2.12/lb | celery $1.33/lb | corn fresh $2.10/lb | corn canned $1.22/lb | corn frozen $1.83/lb | cucumbers $1.09/lb | green beans $2.66/lb | green beans canned $1.18/lb | green peppers $1.50/lb | red peppers $1.71/lb | kale $3.57/lb | lettuce iceberg $1.70/lb | lettuce romaine $2.44/lb | mushrooms $4.15/lb | okra $5.68/lb | onions $1.06/lb | potatoes $0.92/lb | radish $1.85/lb | spinach $4.50/lb | spinach frozen $2.47/lb | sweet potatoes $1.16/lb | tomatoes $1.90/lb | zucchini $1.64/lb | acorn squash $1.24/lb | butternut squash $1.27/lb
+
+BEANS & LEGUMES: black beans canned $1.31/lb | black beans dried $1.66/lb | kidney beans canned $1.20/lb | lentils dried $1.96/lb | pinto beans canned $1.21/lb | pinto beans dried $1.50/lb | chickpeas canned $1.30/lb | green peas canned $1.42/lb | green peas frozen $2.19/lb
+
+MEAT & POULTRY: chicken breast boneless $4.14/lb | chicken whole $2.04/lb | chicken legs bone-in $1.74/lb | ground beef $6.74/lb | ground beef lean $8.34/lb | chuck roast $8.96/lb | round steak $10.10/lb | sirloin steak $14.19/lb | beef stew meat $8.36/lb | bacon $6.90/lb | pork chops bone-in $4.56/lb | pork chops boneless $4.50/lb | ham boneless $5.50/lb | ground turkey $4.95/lb | turkey whole frozen $1.89/lb | lamb $7.80/lb | sausage $4.65/lb
+
+SEAFOOD: salmon $10.50/lb | shrimp frozen $8.95/lb | tilapia $4.85/lb | cod $9.25/lb | canned tuna $1.30/5oz can | sardines canned $2.00/can
+
+DAIRY & EGGS: eggs large $2.58/dozen | milk whole $4.03/gallon | milk low-fat $3.41/gallon | butter $4.31/lb | cheddar cheese $5.99/lb | mozzarella $5.40/lb | parmesan $10.50/lb | cream cheese $4.20/lb | yogurt $1.50/8oz | greek yogurt $1.50/8oz | sour cream $2.85/16oz | heavy cream $4.50/pint | cottage cheese $3.40/lb
+
+GRAINS & BREAD: rice white $1.07/lb | rice brown $1.42/lb | pasta $1.32/lb | bread white $1.85/lb | bread whole wheat $2.69/lb | flour $0.55/lb | oats $1.95/lb | quinoa $4.20/lb | tortillas flour $3.25/pkg | tortillas corn $2.45/pkg
+
+PANTRY: olive oil $8.50/17oz | vegetable oil $4.95/48oz | sesame oil $4.25/8oz | soy sauce $3.15/15oz | vinegar $2.85/32oz | sugar $1.02/lb | honey $5.60/12oz | peanut butter $4.25/16oz | tomato paste $1.10/6oz can | coconut milk canned $2.35/13.5oz | tahini $5.50/16oz | chicken broth $2.45/32oz | salsa $3.50/16oz | hot sauce $3.75/bottle | maple syrup $9.50/12oz
+
+HERBS & AROMATICS: garlic $5.80/lb | ginger $5.50/lb | cilantro $0.85/bunch | parsley $1.10/bunch | basil fresh $2.50/pkg | green onions $1.10/bunch | lemons $1.96/lb | limes $1.70/lb
+
+PLANT PROTEIN: tofu $2.50/lb | tempeh $5.30/lb | edamame frozen $3.25/lb

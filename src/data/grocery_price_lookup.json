@@ -1,0 +1,1522 @@
+{
+  "_meta": {
+    "description": "US national average grocery prices compiled from federal data sources",
+    "sources": {
+      "usda_fruit_veg": {
+        "name": "USDA ERS Fruit and Vegetable Prices",
+        "year": 2023,
+        "basis": "Circana (formerly IRI) retail scanner data from grocery/supermarket/supercenter stores",
+        "url": "https://www.ers.usda.gov/data-products/fruit-and-vegetable-prices",
+        "updated": "December 2025",
+        "items": 155
+      },
+      "usda_meat_spreads": {
+        "name": "USDA ERS Meat Price Spreads",
+        "basis": "BLS and USDA AMS retail price data",
+        "url": "https://www.ers.usda.gov/data-products/meat-price-spreads",
+        "latest_month": "February 2026",
+        "items": 32
+      },
+      "bls_average_prices": {
+        "name": "BLS CPI Average Price Data (AP series)",
+        "basis": "Consumer Price Index price observations, US city average",
+        "url": "https://download.bls.gov/pub/time.series/ap/",
+        "note": "Series APU0000xxxxxx = US city average, not seasonally adjusted",
+        "items": 105
+      }
+    },
+    "currency": "USD",
+    "compiled": "2026-03-12",
+    "total_items": 215
+  },
+  "prices": {
+    "coffee, 100%, ground roast": {
+      "price": 9.459,
+      "unit": "per pound",
+      "bls_series": "APU0000717311",
+      "category": "beverages",
+      "source": "BLS AP (2026-02)"
+    },
+    "all ham (excluding canned ham and luncheon slices)": {
+      "price": 4.481,
+      "unit": "per pound",
+      "bls_series": "APU0000FD2101",
+      "category": "meat_poultry",
+      "source": "BLS AP (2026-02)"
+    },
+    "all other pork (excluding canned ham and luncheon slices)": {
+      "price": 3.522,
+      "unit": "per pound",
+      "bls_series": "APU0000FD4101",
+      "category": "meat_poultry",
+      "source": "BLS AP (2026-02)"
+    },
+    "all pork chops": {
+      "price": 4.191,
+      "unit": "per pound",
+      "bls_series": "APU0000FD3101",
+      "category": "meat_poultry",
+      "source": "BLS AP (2026-02)"
+    },
+    "all uncooked beef roasts": {
+      "price": 8.926,
+      "unit": "per pound",
+      "bls_series": "APU0000FC2101",
+      "category": "meat_poultry",
+      "source": "BLS AP (2026-02)"
+    },
+    "all uncooked beef steaks": {
+      "price": 12.739,
+      "unit": "per pound",
+      "bls_series": "APU0000FC3101",
+      "category": "meat_poultry",
+      "source": "BLS AP (2026-02)"
+    },
+    "all uncooked ground beef": {
+      "price": 6.895,
+      "unit": "per pound",
+      "bls_series": "APU0000FC1101",
+      "category": "meat_poultry",
+      "source": "BLS AP (2026-02)"
+    },
+    "all uncooked other beef (excluding veal)": {
+      "price": 7.713,
+      "unit": "per pound",
+      "bls_series": "APU0000FC4101",
+      "category": "meat_poultry",
+      "source": "BLS AP (2026-02)"
+    },
+    "butter, stick": {
+      "price": 4.314,
+      "unit": "per pound",
+      "bls_series": "APU0000FS1101",
+      "category": "dairy_eggs",
+      "source": "BLS AP (2026-02)"
+    },
+    "chicken breast, boneless": {
+      "price": 4.142,
+      "unit": "per pound",
+      "bls_series": "APU0000FF1101",
+      "category": "meat_poultry",
+      "source": "BLS AP (2026-02)"
+    },
+    "lettuce, romaine": {
+      "price": 3.56,
+      "unit": "per pound",
+      "bls_series": "APU0000FL2101",
+      "category": "meat_poultry",
+      "source": "BLS AP (2026-02)"
+    },
+    "milk, fresh, low-fat, reduced fat, skim": {
+      "price": 3.409,
+      "unit": "per gallon",
+      "bls_series": "APU0000FJ1101",
+      "category": "dairy_eggs",
+      "source": "BLS AP (2026-02)"
+    },
+    "yogurt": {
+      "price": 1.498,
+      "unit": "per 8oz",
+      "bls_series": "APU0000FJ4101",
+      "category": "dairy_eggs",
+      "source": "BLS AP (2026-02)"
+    },
+    "eggs, grade a, large, per doz": {
+      "price": 2.5,
+      "unit": "per dozen",
+      "bls_series": "APU0000708111",
+      "category": "dairy_eggs",
+      "source": "BLS AP (2026-02)"
+    },
+    "milk, fresh, whole, fortified": {
+      "price": 4.026,
+      "unit": "per gallon",
+      "bls_series": "APU0000709112",
+      "category": "dairy_eggs",
+      "source": "BLS AP (2026-02)"
+    },
+    "american processed cheese": {
+      "price": 4.68,
+      "unit": "per pound",
+      "bls_series": "APU0000710211",
+      "category": "dairy_eggs",
+      "source": "BLS AP (2026-02)"
+    },
+    "bananas": {
+      "price": 0.653,
+      "unit": "per pound",
+      "bls_series": "APU0000711211",
+      "category": "dairy_eggs",
+      "source": "BLS AP (2026-02)"
+    },
+    "cheddar cheese, natural": {
+      "price": 5.987,
+      "unit": "per pound",
+      "bls_series": "APU0000710212",
+      "category": "dairy_eggs",
+      "source": "BLS AP (2026-02)"
+    },
+    "grapefruit": {
+      "price": 1.564,
+      "unit": "per pound",
+      "bls_series": "APU0000711411",
+      "category": "dairy_eggs",
+      "source": "BLS AP (2026-02)"
+    },
+    "lemons": {
+      "price": 1.955,
+      "unit": "per pound",
+      "bls_series": "APU0000711412",
+      "category": "dairy_eggs",
+      "source": "BLS AP (2026-02)"
+    },
+    "oranges, navel": {
+      "price": 1.508,
+      "unit": "per pound",
+      "bls_series": "APU0000711311",
+      "category": "dairy_eggs",
+      "source": "BLS AP (2026-02)"
+    },
+    "strawberries, dry pint": {
+      "price": 2.929,
+      "unit": "per 12oz",
+      "bls_series": "APU0000711415",
+      "category": "dairy_eggs",
+      "source": "BLS AP (2026-02)"
+    },
+    "bread, white, pan": {
+      "price": 1.85,
+      "unit": "per pound",
+      "bls_series": "APU0000702111",
+      "category": "grains",
+      "source": "BLS AP (2026-02)"
+    },
+    "bread, whole wheat, pan": {
+      "price": 2.687,
+      "unit": "per pound",
+      "bls_series": "APU0000702212",
+      "category": "grains",
+      "source": "BLS AP (2026-02)"
+    },
+    "flour, white, all purpose": {
+      "price": 0.549,
+      "unit": "per pound",
+      "bls_series": "APU0000701111",
+      "category": "grains",
+      "source": "BLS AP (2026-02)"
+    },
+    "rice, white, long grain, uncooked": {
+      "price": 1.074,
+      "unit": "per pound",
+      "bls_series": "APU0000701312",
+      "category": "grains",
+      "source": "BLS AP (2026-02)"
+    },
+    "spaghetti and macaroni": {
+      "price": 1.323,
+      "unit": "per pound",
+      "bls_series": "APU0000701322",
+      "category": "grains",
+      "source": "BLS AP (2026-02)"
+    },
+    "bacon, sliced": {
+      "price": 6.904,
+      "unit": "per pound",
+      "bls_series": "APU0000704111",
+      "category": "meat_poultry",
+      "source": "BLS AP (2026-02)"
+    },
+    "beef for stew, boneless": {
+      "price": 8.358,
+      "unit": "per pound",
+      "bls_series": "APU0000703432",
+      "category": "meat_poultry",
+      "source": "BLS AP (2026-02)"
+    },
+    "chops, boneless": {
+      "price": 4.496,
+      "unit": "per pound",
+      "bls_series": "APU0000704212",
+      "category": "meat_poultry",
+      "source": "BLS AP (2026-02)"
+    },
+    "chops, center cut, bone-in": {
+      "price": 4.564,
+      "unit": "per pound",
+      "bls_series": "APU0000704211",
+      "category": "meat_poultry",
+      "source": "BLS AP (2026-02)"
+    },
+    "chuck roast, usda choice, boneless": {
+      "price": 8.957,
+      "unit": "per pound",
+      "bls_series": "APU0000703213",
+      "category": "meat_poultry",
+      "source": "BLS AP (2026-02)"
+    },
+    "ground beef, 100% beef": {
+      "price": 6.739,
+      "unit": "per pound",
+      "bls_series": "APU0000703112",
+      "category": "meat_poultry",
+      "source": "BLS AP (2026-02)"
+    },
+    "ground beef, lean and extra lean": {
+      "price": 8.338,
+      "unit": "per pound",
+      "bls_series": "APU0000703113",
+      "category": "meat_poultry",
+      "source": "BLS AP (2026-02)"
+    },
+    "ground chuck, 100% beef": {
+      "price": 6.703,
+      "unit": "per pound",
+      "bls_series": "APU0000703111",
+      "category": "meat_poultry",
+      "source": "BLS AP (2026-02)"
+    },
+    "ham, boneless, excluding canned": {
+      "price": 5.616,
+      "unit": "per pound",
+      "bls_series": "APU0000704312",
+      "category": "meat_poultry",
+      "source": "BLS AP (2026-02)"
+    },
+    "round roast, usda choice, boneless": {
+      "price": 8.587,
+      "unit": "per pound",
+      "bls_series": "APU0000703311",
+      "category": "meat_poultry",
+      "source": "BLS AP (2026-02)"
+    },
+    "steak, round, graded and ungraded, excluding usda prime and choice": {
+      "price": 9.057,
+      "unit": "per pound",
+      "bls_series": "APU0000703512",
+      "category": "meat_poultry",
+      "source": "BLS AP (2026-01)"
+    },
+    "steak, round, usda choice, boneless": {
+      "price": 10.095,
+      "unit": "per pound",
+      "bls_series": "APU0000703511",
+      "category": "meat_poultry",
+      "source": "BLS AP (2026-02)"
+    },
+    "steak, sirloin, usda choice, boneless": {
+      "price": 14.191,
+      "unit": "per pound",
+      "bls_series": "APU0000703613",
+      "category": "meat_poultry",
+      "source": "BLS AP (2026-02)"
+    },
+    "all ham (not canned or sliced)": {
+      "price": 4.43,
+      "unit": "Dollars per pound",
+      "category": "meat_poultry",
+      "source": "USDA Meat Spreads (January 2026)"
+    },
+    "all other pork excluding canned & sliced": {
+      "price": 3.77,
+      "unit": "Dollars per pound",
+      "category": "meat_poultry",
+      "source": "USDA Meat Spreads (January 2026)"
+    },
+    "all uncooked other beef not veal": {
+      "price": 7.85,
+      "unit": "Dollars per pound",
+      "category": "meat_poultry",
+      "source": "USDA Meat Spreads (January 2026)"
+    },
+    "chicken boneless breast": {
+      "price": 4.17,
+      "unit": "Dollars per pound",
+      "category": "meat_poultry",
+      "source": "USDA Meat Spreads (January 2026)"
+    },
+    "chicken legs bone-in": {
+      "price": 1.74,
+      "unit": "Dollars per pound",
+      "category": "meat_poultry",
+      "source": "USDA Meat Spreads (January 2026)"
+    },
+    "chicken, fresh whole": {
+      "price": 2.04,
+      "unit": "Dollars per pound",
+      "category": "meat_poultry",
+      "source": "USDA Meat Spreads (January 2026)"
+    },
+    "eggs, grade a large": {
+      "price": 2.58,
+      "unit": "Dollars per dozen",
+      "category": "dairy_eggs",
+      "source": "USDA Meat Spreads (January 2026)"
+    },
+    "ground beef": {
+      "price": 6.75,
+      "unit": "Dollars per pound",
+      "category": "meat_poultry",
+      "source": "USDA Meat Spreads (January 2026)"
+    },
+    "ground chuck": {
+      "price": 6.69,
+      "unit": "Dollars per pound",
+      "category": "meat_poultry",
+      "source": "USDA Meat Spreads (January 2026)"
+    },
+    "ham, boneless not canned": {
+      "price": 5.5,
+      "unit": "Dollars per pound",
+      "category": "meat_poultry",
+      "source": "USDA Meat Spreads (January 2026)"
+    },
+    "lean & extra lean ground beef": {
+      "price": 8.19,
+      "unit": "Dollars per pound",
+      "category": "meat_poultry",
+      "source": "USDA Meat Spreads (January 2026)"
+    },
+    "milk, fresh, whole, fortified-gallon": {
+      "price": 4.1,
+      "unit": "Dollars per gallon",
+      "category": "dairy_eggs",
+      "source": "USDA Meat Spreads (January 2026)"
+    },
+    "pork chops, boneless,": {
+      "price": 4.43,
+      "unit": "Dollars per pound",
+      "category": "meat_poultry",
+      "source": "USDA Meat Spreads (January 2026)"
+    },
+    "pork chops, center cut, bone in": {
+      "price": 4.45,
+      "unit": "Dollars per pound",
+      "category": "meat_poultry",
+      "source": "USDA Meat Spreads (January 2026)"
+    },
+    "round roast, usda choice boneless": {
+      "price": 8.55,
+      "unit": "Dollars per pound",
+      "category": "meat_poultry",
+      "source": "USDA Meat Spreads (January 2026)"
+    },
+    "round steak, usda choice": {
+      "price": 9.84,
+      "unit": "Dollars per pound",
+      "category": "meat_poultry",
+      "source": "USDA Meat Spreads (January 2026)"
+    },
+    "sirloin steak, usda choice boneless": {
+      "price": 13.84,
+      "unit": "Dollars per pound",
+      "category": "meat_poultry",
+      "source": "USDA Meat Spreads (January 2026)"
+    },
+    "sugar, white": {
+      "price": 1.016,
+      "unit": "per pound",
+      "bls_series": "APU0000715211",
+      "category": "pantry",
+      "source": "BLS AP (2026-02)"
+    },
+    "chicken legs, bone-in": {
+      "price": 1.707,
+      "unit": "per pound",
+      "bls_series": "APU0000706212",
+      "category": "meat_poultry",
+      "source": "BLS AP (2026-02)"
+    },
+    "chicken, fresh, whole": {
+      "price": 2.049,
+      "unit": "per pound",
+      "bls_series": "APU0000706111",
+      "category": "meat_poultry",
+      "source": "BLS AP (2026-02)"
+    },
+    "apples": {
+      "price": 1.86,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.5,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "apples, applesauce, canned": {
+      "price": 1.21,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.65,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "apples, frozen concentrate, juice": {
+      "price": 2.67,
+      "unit": "per pint",
+      "price_per_cup_eq": 0.33,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "apples, ready to drink, juice": {
+      "price": 0.95,
+      "unit": "per pint",
+      "price_per_cup_eq": 0.48,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "apricots": {
+      "price": 3.8,
+      "unit": "per pound",
+      "price_per_cup_eq": 1.49,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "apricots, dried": {
+      "price": 8.63,
+      "unit": "per pound",
+      "price_per_cup_eq": 1.24,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "apricots, in juice, canned": {
+      "price": 2.11,
+      "unit": "per pound",
+      "price_per_cup_eq": 1.14,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "apricots, in syrup or water, canned": {
+      "price": 2.56,
+      "unit": "per pound",
+      "price_per_cup_eq": 1.73,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "berries, mixed, frozen": {
+      "price": 4.45,
+      "unit": "per pound",
+      "price_per_cup_eq": 1.47,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "blackberries": {
+      "price": 6.83,
+      "unit": "per pound",
+      "price_per_cup_eq": 2.28,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "blackberries, frozen": {
+      "price": 4.71,
+      "unit": "per pound",
+      "price_per_cup_eq": 1.56,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "blueberries": {
+      "price": 5.13,
+      "unit": "per pound",
+      "price_per_cup_eq": 1.73,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "blueberries, frozen": {
+      "price": 4.2,
+      "unit": "per pound",
+      "price_per_cup_eq": 1.39,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "cantaloupe": {
+      "price": 0.79,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.58,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "cherries, in syrup or water, canned": {
+      "price": 6.31,
+      "unit": "per pound",
+      "price_per_cup_eq": 4.28,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "clementines": {
+      "price": 1.59,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.95,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "cranberries, dried": {
+      "price": 5.26,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.65,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "dates, dried": {
+      "price": 5.89,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.97,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "figs, dried": {
+      "price": 8.05,
+      "unit": "per pound",
+      "price_per_cup_eq": 1.39,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "fruit cocktail, in juice, canned": {
+      "price": 2.65,
+      "unit": "per pound",
+      "price_per_cup_eq": 1.43,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "fruit cocktail, in syrup or water, canned": {
+      "price": 2.31,
+      "unit": "per pound",
+      "price_per_cup_eq": 1.57,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "grapefruit, ready to drink, juice": {
+      "price": 1.22,
+      "unit": "per pint",
+      "price_per_cup_eq": 0.61,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "grapes": {
+      "price": 2.25,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.77,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "grapes (raisins), dried": {
+      "price": 4.33,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.72,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "grapes, frozen concentrate, juice": {
+      "price": 3.3,
+      "unit": "per pint",
+      "price_per_cup_eq": 0.41,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "grapes, ready to drink, juice": {
+      "price": 1.15,
+      "unit": "per pint",
+      "price_per_cup_eq": 0.58,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "honeydew": {
+      "price": 1.25,
+      "unit": "per pound",
+      "price_per_cup_eq": 1.02,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "kiwi": {
+      "price": 2.83,
+      "unit": "per pound",
+      "price_per_cup_eq": 1.44,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "mangoes": {
+      "price": 1.46,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.75,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "mangoes, dried": {
+      "price": 10.11,
+      "unit": "per pound",
+      "price_per_cup_eq": 1.27,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "nectarines": {
+      "price": 2.48,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.87,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "oranges": {
+      "price": 1.44,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.86,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "oranges, frozen concentrate, juice": {
+      "price": 3.4,
+      "unit": "per pint",
+      "price_per_cup_eq": 0.43,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "oranges, ready to drink, juice": {
+      "price": 1.15,
+      "unit": "per pint",
+      "price_per_cup_eq": 0.58,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "papaya": {
+      "price": 1.31,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.65,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "papaya, dried": {
+      "price": 8.17,
+      "unit": "per pound",
+      "price_per_cup_eq": 1.26,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "peaches, frozen": {
+      "price": 3.76,
+      "unit": "per pound",
+      "price_per_cup_eq": 1.24,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "peaches, in juice, canned": {
+      "price": 2.49,
+      "unit": "per pound",
+      "price_per_cup_eq": 1.34,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "peaches, in syrup or water, canned": {
+      "price": 2.21,
+      "unit": "per pound",
+      "price_per_cup_eq": 1.5,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "pears": {
+      "price": 1.92,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.77,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "pears, in juice, canned": {
+      "price": 2.33,
+      "unit": "per pound",
+      "price_per_cup_eq": 1.26,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "pears, in syrup or water, canned": {
+      "price": 2.32,
+      "unit": "per pound",
+      "price_per_cup_eq": 1.57,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "pineapple": {
+      "price": 0.67,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.48,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "pineapple, dried": {
+      "price": 7.95,
+      "unit": "per pound",
+      "price_per_cup_eq": 1.23,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "pineapple, frozen concentrate, juice": {
+      "price": 3.04,
+      "unit": "per pint",
+      "price_per_cup_eq": 0.38,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "pineapple, in juice, canned": {
+      "price": 1.72,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.93,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "pineapple, in syrup or water, canned": {
+      "price": 1.83,
+      "unit": "per pound",
+      "price_per_cup_eq": 1.24,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "pineapple, ready to drink, juice": {
+      "price": 1.37,
+      "unit": "per pint",
+      "price_per_cup_eq": 0.69,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "plum": {
+      "price": 2.66,
+      "unit": "per pound",
+      "price_per_cup_eq": 1.03,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "plum (prune), ready to drink, juice": {
+      "price": 1.79,
+      "unit": "per pint",
+      "price_per_cup_eq": 0.9,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "plum (prunes), dried": {
+      "price": 6.91,
+      "unit": "per pound",
+      "price_per_cup_eq": 1.29,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "pomegranate": {
+      "price": 2.48,
+      "unit": "per pound",
+      "price_per_cup_eq": 1.51,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "pomegranate, ready to drink, juice": {
+      "price": 3.19,
+      "unit": "per pint",
+      "price_per_cup_eq": 1.59,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "raspberries": {
+      "price": 7.97,
+      "unit": "per pound",
+      "price_per_cup_eq": 2.65,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "raspberries, frozen": {
+      "price": 6.21,
+      "unit": "per pound",
+      "price_per_cup_eq": 2.05,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "strawberries": {
+      "price": 3.08,
+      "unit": "per pound",
+      "price_per_cup_eq": 1.05,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "strawberries, frozen": {
+      "price": 3.47,
+      "unit": "per pound",
+      "price_per_cup_eq": 1.15,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "watermelon": {
+      "price": 0.41,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.26,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "acorn squash": {
+      "price": 1.24,
+      "unit": "per pound",
+      "price_per_cup_eq": 1.22,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "artichoke": {
+      "price": 2.51,
+      "unit": "per pound",
+      "price_per_cup_eq": 2.08,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "artichoke, canned": {
+      "price": 3.51,
+      "unit": "per pound",
+      "price_per_cup_eq": 2.58,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "asparagus": {
+      "price": 3.21,
+      "unit": "per pound",
+      "price_per_cup_eq": 2.58,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "asparagus, canned": {
+      "price": 3.68,
+      "unit": "per pound",
+      "price_per_cup_eq": 2.24,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "asparagus, frozen": {
+      "price": 6.78,
+      "unit": "per pound",
+      "price_per_cup_eq": 2.6,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "avocados": {
+      "price": 2.26,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.98,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "beets, canned": {
+      "price": 1.26,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.73,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "black beans, canned": {
+      "price": 1.31,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.78,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "black beans, dried": {
+      "price": 1.66,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.26,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "blackeye peas, canned": {
+      "price": 1.42,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.82,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "blackeye peas, dried": {
+      "price": 2.13,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.32,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "broccoli florets": {
+      "price": 3.08,
+      "unit": "per pound",
+      "price_per_cup_eq": 1.05,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "broccoli heads": {
+      "price": 3.02,
+      "unit": "per pound",
+      "price_per_cup_eq": 1.32,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "broccoli, frozen": {
+      "price": 2.57,
+      "unit": "per pound",
+      "price_per_cup_eq": 1.0,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "brussels sprouts": {
+      "price": 3.04,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.98,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "brussels sprouts, frozen": {
+      "price": 2.89,
+      "unit": "per pound",
+      "price_per_cup_eq": 1.03,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "butternut squash": {
+      "price": 1.27,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.8,
+      "category": "dairy_eggs",
+      "source": "USDA ERS 2023"
+    },
+    "cabbage, green": {
+      "price": 0.83,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.35,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "cabbage, red": {
+      "price": 1.26,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.54,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "cabbage, sauerkraut, canned": {
+      "price": 1.63,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.77,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "carrots, baby": {
+      "price": 1.46,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.4,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "carrots, canned": {
+      "price": 1.32,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.65,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "carrots, cooked whole": {
+      "price": 1.01,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.39,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "carrots, frozen": {
+      "price": 2.04,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.66,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "carrots, raw whole": {
+      "price": 1.01,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.31,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "cauliflower florets": {
+      "price": 3.97,
+      "unit": "per pound",
+      "price_per_cup_eq": 1.13,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "cauliflower heads": {
+      "price": 2.12,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.66,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "cauliflower, frozen": {
+      "price": 2.72,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.81,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "celery sticks": {
+      "price": 2.65,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.7,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "celery, trimmed bunches": {
+      "price": 1.33,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.48,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "collard greens": {
+      "price": 2.48,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.61,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "collard greens, canned": {
+      "price": 1.42,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.79,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "collard greens, frozen": {
+      "price": 2.72,
+      "unit": "per pound",
+      "price_per_cup_eq": 1.12,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "corn": {
+      "price": 2.1,
+      "unit": "per pound",
+      "price_per_cup_eq": 1.42,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "corn, canned": {
+      "price": 1.22,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.68,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "corn, frozen": {
+      "price": 1.83,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.69,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "cucumbers with peel": {
+      "price": 1.09,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.3,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "cucumbers without peel": {
+      "price": 1.09,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.4,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "great northern beans, canned": {
+      "price": 1.17,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.69,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "great northern beans, dried": {
+      "price": 1.87,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.29,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "green beans": {
+      "price": 2.66,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.87,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "green beans, canned": {
+      "price": 1.18,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.54,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "green beans, frozen": {
+      "price": 2.17,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.72,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "green peas, canned": {
+      "price": 1.42,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.77,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "green peas, frozen": {
+      "price": 2.19,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.87,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "green peppers": {
+      "price": 1.5,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.49,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "kale": {
+      "price": 3.57,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.97,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "kale, frozen": {
+      "price": 2.28,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.92,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "kidney beans, canned": {
+      "price": 1.2,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.71,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "kidney beans, dried": {
+      "price": 2.0,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.31,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "lentils, dried": {
+      "price": 1.96,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.31,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "lettuce, romaine, heads": {
+      "price": 2.44,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.54,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "lettuce, romaine, hearts": {
+      "price": 3.03,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.75,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "lima beans, canned": {
+      "price": 1.63,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.94,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "lima beans, dried": {
+      "price": 2.65,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.97,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "lima beans, frozen": {
+      "price": 2.83,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.4,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "mixed vegetables, broccoli, cauliflower, and carrots, frozen": {
+      "price": 2.37,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.76,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "mixed vegetables, carrots, peas, corn, and green beans, frozen": {
+      "price": 1.92,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.66,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "mixed vegetables, peas and carrots, canned": {
+      "price": 1.61,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.84,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "mixed vegetables, peas and carrots, frozen": {
+      "price": 2.06,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.71,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "mushrooms, sliced": {
+      "price": 4.01,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.62,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "mushrooms, whole": {
+      "price": 4.15,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.66,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "mustard greens, canned": {
+      "price": 1.41,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.72,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "mustard greens, frozen": {
+      "price": 2.92,
+      "unit": "per pound",
+      "price_per_cup_eq": 1.29,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "navy beans, canned": {
+      "price": 1.23,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.73,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "navy beans, dried": {
+      "price": 1.71,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.27,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "okra": {
+      "price": 5.68,
+      "unit": "per pound",
+      "price_per_cup_eq": 2.6,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "okra, frozen": {
+      "price": 2.65,
+      "unit": "per pound",
+      "price_per_cup_eq": 1.11,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "olives, canned": {
+      "price": 5.99,
+      "unit": "per pound",
+      "price_per_cup_eq": 1.78,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "onions": {
+      "price": 1.06,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.42,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "pinto beans, canned": {
+      "price": 1.21,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.72,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "pinto beans, dried": {
+      "price": 1.5,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.23,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "potatoes": {
+      "price": 0.92,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.3,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "potatoes, canned": {
+      "price": 1.1,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.58,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "potatoes, french fries, frozen": {
+      "price": 2.52,
+      "unit": "per pound",
+      "price_per_cup_eq": 1.11,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "pumpkin, canned": {
+      "price": 2.08,
+      "unit": "per pound",
+      "price_per_cup_eq": 1.12,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "radish": {
+      "price": 1.85,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.57,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "red peppers": {
+      "price": 1.71,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.55,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "spinach, boiled": {
+      "price": 4.5,
+      "unit": "per pound",
+      "price_per_cup_eq": 1.93,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "spinach, canned": {
+      "price": 1.67,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.96,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "spinach, eaten raw": {
+      "price": 4.5,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.69,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "spinach, frozen": {
+      "price": 2.47,
+      "unit": "per pound",
+      "price_per_cup_eq": 1.19,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "sweet potatoes": {
+      "price": 1.16,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.58,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "tomatoes, grape and cherry": {
+      "price": 4.16,
+      "unit": "per pound",
+      "price_per_cup_eq": 1.71,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "tomatoes, large round": {
+      "price": 2.14,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.88,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "tomatoes, roma and plum": {
+      "price": 1.24,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.51,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "turnip greens": {
+      "price": 2.97,
+      "unit": "per pound",
+      "price_per_cup_eq": 1.27,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "turnip greens, canned": {
+      "price": 1.4,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.76,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "turnip greens, frozen": {
+      "price": 2.92,
+      "unit": "per pound",
+      "price_per_cup_eq": 1.33,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "zucchini": {
+      "price": 1.64,
+      "unit": "per pound",
+      "price_per_cup_eq": 0.85,
+      "category": "produce",
+      "source": "USDA ERS 2023"
+    },
+    "beans, dried": {
+      "price": 1.704,
+      "unit": "per pound",
+      "bls_series": "APU0000714233",
+      "category": "produce",
+      "source": "BLS AP (2026-02)"
+    },
+    "corn, canned, any style": {
+      "price": 1.312,
+      "unit": "per pound",
+      "bls_series": "APU0000714221",
+      "category": "produce",
+      "source": "BLS AP (2026-02)"
+    },
+    "lettuce, iceberg": {
+      "price": 1.699,
+      "unit": "per pound",
+      "bls_series": "APU0000712211",
+      "category": "produce",
+      "source": "BLS AP (2026-01)"
+    },
+    "orange juice, frozen concentrate, 12 oz. can": {
+      "price": 4.863,
+      "unit": "per 16oz",
+      "bls_series": "APU0000713111",
+      "category": "produce",
+      "source": "BLS AP (2026-02)"
+    },
+    "potatoes, white": {
+      "price": 0.866,
+      "unit": "per pound",
+      "bls_series": "APU0000712112",
+      "category": "produce",
+      "source": "BLS AP (2026-02)"
+    },
+    "tomatoes, field grown": {
+      "price": 1.902,
+      "unit": "per pound",
+      "bls_series": "APU0000712311",
+      "category": "produce",
+      "source": "BLS AP (2026-02)"
+    }
+  }
+}
