@@ -1,20 +1,15 @@
-// Groq API client using OpenAI-compatible endpoint
+// Groq API client using native fetch (OpenAI-compatible endpoint)
 // Model: llama-3.3-70b-versatile (Groq free tier, 1,000 req/day, 6,000 tokens/min)
 // APA: Groq. (2024). GroqCloud documentation. https://console.groq.com/docs/openai
 
-import OpenAI from 'openai';
 import fs from 'fs';
 import path from 'path';
-
-const groqClient = new OpenAI({
-  apiKey: process.env.GROQ_API_KEY ?? '',
-  baseURL: 'https://api.groq.com/openai/v1',
-});
 
 // Read price table once at module load (server-side only)
 const priceTablePath = path.join(process.cwd(), 'src/data/price_table_prompt.txt');
 const priceTable = fs.readFileSync(priceTablePath, 'utf-8');
 
+const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
 export const GROQ_MODEL = 'llama-3.3-70b-versatile';
 
 export function buildSystemPrompt(): string {
@@ -59,42 +54,67 @@ Rules:
 - Prefer whole foods and recipes under 30 minutes for weekday meals`;
 }
 
-/** Call Groq with retry on 429 and 500 errors (max 2 retries) */
+/** Call Groq via raw fetch with retry on 429/500 (max 2 retries) */
 export async function callGroq(systemPrompt: string, userPrompt: string): Promise<string> {
+  const apiKey = process.env.GROQ_API_KEY;
+  if (!apiKey) throw new Error('GROQ_API_KEY is not set');
+
   let lastError: Error | null = null;
+
   for (let attempt = 0; attempt <= 2; attempt++) {
     try {
-      const response = await groqClient.chat.completions.create({
-        model: GROQ_MODEL,
-        messages: [
-          { role: 'system', content: systemPrompt },
-          { role: 'user', content: userPrompt },
-        ],
-        temperature: 0.7,
-        max_tokens: 8000,
+      const res = await fetch(GROQ_API_URL, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${apiKey}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          model: GROQ_MODEL,
+          messages: [
+            { role: 'system', content: systemPrompt },
+            { role: 'user', content: userPrompt },
+          ],
+          temperature: 0.7,
+          max_tokens: 8000,
+        }),
       });
-      return response.choices[0]?.message?.content ?? '';
-    } catch (err: unknown) {
+
+      if (res.status === 429 || res.status === 500) {
+        lastError = new Error(`Groq returned ${res.status}`);
+        if (attempt < 2) {
+          await new Promise(r => setTimeout(r, 1000 * (attempt + 1)));
+          continue;
+        }
+        break;
+      }
+
+      if (!res.ok) {
+        const body = await res.text();
+        throw new Error(`Groq ${res.status}: ${body}`);
+      }
+
+      const data = await res.json() as { choices: Array<{ message: { content: string } }> };
+      return data.choices[0]?.message?.content ?? '';
+    } catch (err) {
       lastError = err instanceof Error ? err : new Error(String(err));
-      const status = (err as { status?: number }).status;
-      if (attempt < 2 && (status === 429 || status === 500)) {
+      if (attempt < 2) {
         await new Promise(r => setTimeout(r, 1000 * (attempt + 1)));
         continue;
       }
       break;
     }
   }
+
   throw lastError ?? new Error('Groq API call failed');
 }
 
 /** Parse JSON from LLM response, with regex fallback for wrapped JSON */
 export function parseJSON<T>(raw: string): T {
-  // Try direct parse first
   const trimmed = raw.trim();
   try {
     return JSON.parse(trimmed) as T;
   } catch {
-    // Strip markdown code fences if present
     const fenceMatch = trimmed.match(/```(?:json)?\s*([\s\S]+?)```/);
     if (fenceMatch) {
       try {
@@ -103,7 +123,6 @@ export function parseJSON<T>(raw: string): T {
         // fall through
       }
     }
-    // Regex extract first { ... } block
     const objMatch = trimmed.match(/\{[\s\S]+\}/);
     if (objMatch) {
       return JSON.parse(objMatch[0]) as T;
