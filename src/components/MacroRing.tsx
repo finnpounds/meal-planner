@@ -1,5 +1,7 @@
 'use client';
 
+import { useState, useEffect } from 'react';
+
 interface MacroRingProps {
   label: string;
   value: number;
@@ -14,7 +16,14 @@ export function MacroRing({ label, value, target, color, unit = 'g' }: MacroRing
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
   const pct = target > 0 ? Math.min(value / target, 1) : 0;
-  const offset = circumference * (1 - pct);
+  const targetOffset = circumference * (1 - pct);
+
+  // Start at empty, animate to real value after mount
+  const [offset, setOffset] = useState(circumference);
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setOffset(targetOffset));
+    return () => cancelAnimationFrame(id);
+  }, [targetOffset]);
 
   return (
     <div className="flex flex-col items-center gap-1">
@@ -32,10 +41,11 @@ export function MacroRing({ label, value, target, color, unit = 'g' }: MacroRing
             strokeDasharray={circumference}
             strokeDashoffset={offset}
             strokeLinecap="round"
+            style={{ transition: 'stroke-dashoffset 0.6s ease-out' }}
           />
         </svg>
         <div
-          className="absolute inset-0 flex items-center justify-center text-xs font-medium"
+          className="absolute inset-0 flex items-center justify-center font-medium"
           style={{ fontFamily: 'DM Mono, monospace', color: 'var(--text)', fontSize: '0.6rem' }}
         >
           {value}{unit}

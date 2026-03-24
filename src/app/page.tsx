@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useMealPlan } from '@/contexts/MealPlanContext';
 import { calcTDEE, calcCalorieTarget } from '@/lib/nutrition';
+import { LOADING_MESSAGES } from '@/lib/constants';
+import { Spinner } from '@/components/Spinner';
 import type { ActivityLevel, UserInputs, WeightGoal } from '@/lib/types';
 
 const BUDGET_PRESETS = [50, 75, 100, 150];
@@ -19,16 +21,6 @@ const ACTIVITY_OPTIONS: { value: ActivityLevel; label: string; desc: string }[] 
 const DIETARY_PREFS = [
   'Vegetarian', 'Vegan', 'Pescatarian', 'Keto', 'Low-Carb',
   'Gluten-Free', 'Dairy-Free', 'High-Protein', 'Mediterranean', 'No Restrictions',
-];
-
-const LOADING_MESSAGES = [
-  'Analyzing your nutrition targets...',
-  'Cross-referencing USDA price data...',
-  'Building your 7-day plan...',
-  'Optimizing for your budget...',
-  'Balancing macros across the week...',
-  'Generating grocery list...',
-  'Almost done...',
 ];
 
 export default function HomePage() {
@@ -85,7 +77,7 @@ export default function HomePage() {
     let msgIdx = 0;
     setLoadingMsg(LOADING_MESSAGES[0]);
     const interval = setInterval(() => {
-      msgIdx = (msgIdx + 1) % LOADING_MESSAGES.length;
+      msgIdx = Math.min(msgIdx + 1, LOADING_MESSAGES.length - 1);
       setLoadingMsg(LOADING_MESSAGES[msgIdx]);
     }, 2500);
 
@@ -393,7 +385,7 @@ export default function HomePage() {
           >
             {loading ? (
               <span className="flex items-center justify-center gap-3">
-                <Spinner />
+                <Spinner size={4} />
                 <span style={{ fontFamily: 'DM Mono, monospace', fontSize: '0.75rem' }}>{loadingMsg}</span>
               </span>
             ) : (
@@ -406,11 +398,3 @@ export default function HomePage() {
   );
 }
 
-function Spinner() {
-  return (
-    <svg className="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
-      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-    </svg>
-  );
-}

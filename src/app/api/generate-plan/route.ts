@@ -7,10 +7,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { buildSystemPrompt, callGroq, parseJSON } from '@/lib/groq';
 import { calcNutritionTarget } from '@/lib/nutrition';
 import { estimateIngredientCost } from '@/lib/priceLookup';
-import type { GeneratePlanResponse, MealPlan, UserInputs, ValidationResult, DayName } from '@/lib/types';
-
-const DAYS: DayName[] = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-const MEALS = ['breakfast', 'lunch', 'dinner', 'snack'] as const;
+import type { GeneratePlanResponse, MealPlan, UserInputs, ValidationResult } from '@/lib/types';
+import { DAYS, MEALS } from '@/lib/constants';
 
 // Pantry overhead per cooked meal: accounts for salt, pepper, oil, spices not explicitly listed
 const PANTRY_OVERHEAD = 0.60;

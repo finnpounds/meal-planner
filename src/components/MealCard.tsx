@@ -20,9 +20,10 @@ interface MealCardProps {
 export function MealCard({ mealType, meal, nutritionTarget }: MealCardProps) {
   const [expanded, setExpanded] = useState(false);
 
-  const perMealProtein = Math.round(nutritionTarget.proteinG / 4);
-  const perMealCarbs = Math.round(nutritionTarget.carbsG / 4);
-  const perMealFat = Math.round(nutritionTarget.fatG / 4);
+  // Rings show how much of the daily target this meal covers (not a /4 split)
+  const proteinTarget = nutritionTarget.proteinG;
+  const carbsTarget = nutritionTarget.carbsG;
+  const fatTarget = nutritionTarget.fatG;
 
   return (
     <div
@@ -70,18 +71,21 @@ export function MealCard({ mealType, meal, nutritionTarget }: MealCardProps) {
           {/* Macros */}
           <div>
             <div className="text-xs mb-3" style={{ color: 'var(--text-muted)', fontFamily: 'DM Mono, monospace' }}>
-              MACROS vs TARGET
+              % OF DAILY TARGET
             </div>
             <div className="flex gap-4 items-center flex-wrap">
-              <MacroRing label="Protein" value={meal.protein} target={perMealProtein} color="#6b8f5e" />
-              <MacroRing label="Carbs" value={meal.carbs} target={perMealCarbs} color="#8f7a5e" />
-              <MacroRing label="Fat" value={meal.fat} target={perMealFat} color="#5e6f8f" />
+              <MacroRing label="Protein" value={meal.protein} target={proteinTarget} color="#6b8f5e" />
+              <MacroRing label="Carbs" value={meal.carbs} target={carbsTarget} color="#8f7a5e" />
+              <MacroRing label="Fat" value={meal.fat} target={fatTarget} color="#5e6f8f" />
               <div className="flex flex-col gap-1 text-xs ml-2">
                 <div style={{ color: 'var(--text-muted)' }}>Calories</div>
                 <div className="font-semibold" style={{ fontFamily: 'DM Mono, monospace' }}>{meal.calories} kcal</div>
                 <div style={{ color: 'var(--text-muted)' }}>Cost</div>
                 <div className="font-semibold" style={{ color: 'var(--accent)', fontFamily: 'DM Mono, monospace' }}>${meal.cost.toFixed(2)}</div>
               </div>
+            </div>
+            <div className="text-xs mt-2" style={{ color: 'var(--text-muted)' }}>
+              Ring fill = this meal&apos;s contribution to your daily target
             </div>
           </div>
 

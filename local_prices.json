@@ -1,0 +1,27 @@
+{
+  "_meta": {
+    "source": "USA Today Grocery Price Tracker (Bright Data / Walmart)",
+    "url": "https://data.usatoday.com/projects/grocery-prices-tracker/",
+    "location": "Worcester, MA",
+    "store": "Walmart",
+    "date_accessed": "2026-03-24",
+    "prices_as_of": "2026-03-20"
+  },
+  "prices": {
+    "apples": { "price": 2.38, "unit": "3 lb bag", "price_per_lb": 0.79 },
+    "avocados": { "price": 4.17, "unit": "3-4 count", "price_per_each": 1.19 },
+    "bananas": { "price": 0.19, "unit": "each", "price_per_lb": 0.58 },
+    "ground beef": { "price": 6.26, "unit": "1 lb", "price_per_lb": 6.26 },
+    "bread": { "price": 1.48, "unit": "20 oz loaf", "price_per_lb": 1.18 },
+    "cheese slices": { "price": 1.67, "unit": "12 slices", "price_per_lb": 3.34 },
+    "chicken": { "price": 11.57, "unit": "7 kg", "price_per_lb": 0.75 },
+    "coffee": { "price": 6.24, "unit": "12 oz", "price_per_lb": 8.32 },
+    "eggs": { "price": 2.96, "unit": "dozen", "price_per_dozen": 2.96 },
+    "lettuce iceberg": { "price": 2.18, "unit": "head", "price_per_head": 2.18 },
+    "milk whole": { "price": 3.02, "unit": "gallon", "price_per_gallon": 3.02 },
+    "potatoes": { "price": 2.47, "unit": "5 lb bag", "price_per_lb": 0.49 },
+    "rice white": { "price": 3.37, "unit": "5 lbs", "price_per_lb": 0.67 },
+    "spaghetti": { "price": 0.98, "unit": "454g (1 lb)", "price_per_lb": 0.98 },
+    "tomato": { "price": 0.22, "unit": "each", "price_per_lb": 0.56 }
+  }
+}

@@ -1,10 +1,8 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import type { MealPlan, DayName } from '@/lib/types';
-
-const DAYS: DayName[] = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-const MEALS = ['breakfast', 'lunch', 'dinner', 'snack'] as const;
+import type { MealPlan } from '@/lib/types';
+import { DAYS, MEALS } from '@/lib/constants';
 
 const CATEGORY_KEYWORDS: Record<string, string[]> = {
   Produce: ['apple', 'banana', 'orange', 'lemon', 'lime', 'berry', 'berries', 'grape', 'melon', 'mango', 'avocado', 'tomato', 'potato', 'onion', 'garlic', 'carrot', 'broccoli', 'spinach', 'lettuce', 'kale', 'celery', 'cucumber', 'zucchini', 'pepper', 'corn', 'mushroom', 'ginger', 'cilantro', 'parsley', 'basil', 'scallion', 'green onion', 'cabbage', 'cauliflower', 'asparagus', 'pea', 'edamame'],

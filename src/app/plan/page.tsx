@@ -7,21 +7,11 @@ import { DayTabs } from '@/components/DayTabs';
 import { MealCard } from '@/components/MealCard';
 import { WeeklySummary } from '@/components/WeeklySummary';
 import { GroceryList } from '@/components/GroceryList';
+import { Spinner } from '@/components/Spinner';
+import { DAYS, MEALS, LOADING_MESSAGES } from '@/lib/constants';
 import type { DayName } from '@/lib/types';
 
 type Tab = 'plan' | 'grocery';
-const DAYS: DayName[] = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-const MEALS = ['breakfast', 'lunch', 'dinner', 'snack'] as const;
-
-const LOADING_MESSAGES = [
-  'Analyzing your nutrition targets...',
-  'Cross-referencing USDA price data...',
-  'Building your 7-day plan...',
-  'Optimizing for your budget...',
-  'Balancing macros across the week...',
-  'Generating grocery list...',
-  'Almost done...',
-];
 
 export default function PlanPage() {
   const router = useRouter();
@@ -33,10 +23,12 @@ export default function PlanPage() {
   const [regenError, setRegenError] = useState('');
 
   useEffect(() => {
-    if (!result) {
-      router.replace('/');
-    }
+    if (!result) router.replace('/');
   }, [result, router]);
+
+  useEffect(() => {
+    document.title = result ? '7-Day Plan — Meal Planner' : 'Meal Planner';
+  }, [result]);
 
   if (!result || !lastInputs) {
     return (
@@ -56,7 +48,8 @@ export default function PlanPage() {
     let msgIdx = 0;
     setRegenMsg(LOADING_MESSAGES[0]);
     const interval = setInterval(() => {
-      msgIdx = (msgIdx + 1) % LOADING_MESSAGES.length;
+      // Advance through messages without looping — stay on last message when exhausted
+      msgIdx = Math.min(msgIdx + 1, LOADING_MESSAGES.length - 1);
       setRegenMsg(LOADING_MESSAGES[msgIdx]);
     }, 2500);
 
@@ -70,7 +63,7 @@ export default function PlanPage() {
       if (!res.ok) throw new Error(data.error ?? 'Failed to regenerate');
       setResult(data);
       setLastInputs(lastInputs);
-      setActiveDay('Monday');
+      // Preserve the current day selection instead of resetting to Monday
     } catch (err) {
       setRegenError(err instanceof Error ? err.message : 'Something went wrong');
     } finally {
@@ -109,7 +102,7 @@ export default function PlanPage() {
             >
               {regenerating ? (
                 <span className="flex items-center gap-2">
-                  <Spinner />
+                  <Spinner size={3} />
                   <span style={{ fontFamily: 'DM Mono, monospace' }}>{regenMsg}</span>
                 </span>
               ) : 'Regenerate'}
@@ -123,11 +116,7 @@ export default function PlanPage() {
             style={{ background: '#2a1515', border: '1px solid var(--danger)', color: '#e87070' }}
           >
             {regenError}
-            <button
-              onClick={handleRegenerate}
-              className="ml-3 underline text-xs"
-              style={{ color: '#e87070' }}
-            >
+            <button onClick={handleRegenerate} className="ml-3 underline text-xs" style={{ color: '#e87070' }}>
               Retry
             </button>
           </div>
@@ -192,14 +181,5 @@ export default function PlanPage() {
         )}
       </div>
     </main>
-  );
-}
-
-function Spinner() {
-  return (
-    <svg className="animate-spin h-3 w-3" fill="none" viewBox="0 0 24 24">
-      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-    </svg>
   );
 }
