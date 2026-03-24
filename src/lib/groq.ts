@@ -2,12 +2,7 @@
 // Model: llama-3.3-70b-versatile (Groq free tier, 1,000 req/day, 6,000 tokens/min)
 // APA: Groq. (2024). GroqCloud documentation. https://console.groq.com/docs/openai
 
-import fs from 'fs';
-import path from 'path';
-
-// Read price table once at module load (server-side only)
-const priceTablePath = path.join(process.cwd(), 'src/data/price_table_prompt.txt');
-const priceTable = fs.readFileSync(priceTablePath, 'utf-8');
+import { buildPricePrompt } from './buildPricePrompt';
 
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
 export const GROQ_MODEL = 'llama-3.3-70b-versatile';
@@ -15,9 +10,9 @@ export const GROQ_MODEL = 'llama-3.3-70b-versatile';
 export function buildSystemPrompt(): string {
   return `You are a professional nutritionist and budget meal planner.
 
-${priceTable}
+${buildPricePrompt()}
 
-When creating recipes, use the prices above to calculate ingredient costs. If an ingredient is not listed, estimate conservatively based on similar items.
+When creating recipes, use the prices above to calculate ingredient costs. Prefer LOCAL prices when available for more accurate budget estimates. If an ingredient is not listed in either price source, estimate conservatively based on similar items.
 
 Generate a 7-day meal plan as valid JSON. RESPOND WITH ONLY VALID JSON. No markdown, no backticks, no explanation.
 
@@ -135,4 +130,3 @@ export function parseJSON<T>(raw: string): T {
   }
 }
 
-export { priceTable };

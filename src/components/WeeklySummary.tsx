@@ -100,6 +100,11 @@ export function WeeklySummary({ plan, budget, nutritionTarget, validation }: Wee
           </span>
         )}
       </div>
+
+      {/* Price source attribution */}
+      <div className="text-xs" style={{ color: 'var(--text-muted)', fontFamily: 'DM Mono, monospace' }}>
+        Prices: Walmart Worcester, MA (Mar 2026) + USDA/BLS national avg
+      </div>
     </div>
   );
 }
