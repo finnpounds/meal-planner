@@ -35,12 +35,12 @@ export default function HomePage() {
   const router = useRouter();
   const { setResult, setLastInputs } = useMealPlan();
 
-  const [budget, setBudget] = useState(100);
-  const [age, setAge] = useState(25);
+  const [budget, setBudget] = useState('100');
+  const [age, setAge] = useState('25');
   const [sex, setSex] = useState<'male' | 'female'>('male');
-  const [weightLbs, setWeightLbs] = useState(170);
-  const [heightFt, setHeightFt] = useState(5);
-  const [heightIn, setHeightIn] = useState(10);
+  const [weightLbs, setWeightLbs] = useState('170');
+  const [heightFt, setHeightFt] = useState('5');
+  const [heightIn, setHeightIn] = useState('10');
   const [activityLevel, setActivityLevel] = useState<ActivityLevel>('moderate');
   const [goal, setGoal] = useState<WeightGoal>('maintain');
   const [dietaryPrefs, setDietaryPrefs] = useState<string[]>([]);
@@ -52,14 +52,19 @@ export default function HomePage() {
   const [tdee, setTdee] = useState(0);
   const [calTarget, setCalTarget] = useState(0);
 
-  const heightInches = heightFt * 12 + heightIn;
+  const ageNum = parseInt(age) || 0;
+  const weightNum = parseFloat(weightLbs) || 0;
+  const heightFtNum = parseInt(heightFt) || 0;
+  const heightInNum = parseInt(heightIn) || 0;
+  const budgetNum = parseFloat(budget) || 0;
+  const heightInches = heightFtNum * 12 + heightInNum;
 
   useEffect(() => {
-    const t = calcTDEE({ weightLbs, heightInches, age, sex, activityLevel });
+    const t = calcTDEE({ weightLbs: weightNum, heightInches, age: ageNum, sex, activityLevel });
     const c = calcCalorieTarget(t, goal);
     setTdee(t);
     setCalTarget(c);
-  }, [weightLbs, heightInches, age, sex, activityLevel, goal]);
+  }, [weightNum, heightInches, ageNum, sex, activityLevel, goal]);
 
   function togglePref(pref: string) {
     if (pref === 'No Restrictions') {
@@ -85,10 +90,10 @@ export default function HomePage() {
     }, 2500);
 
     const inputs: UserInputs = {
-      budget,
-      age,
+      budget: budgetNum,
+      age: ageNum,
       sex,
-      weightLbs,
+      weightLbs: weightNum,
       heightInches,
       activityLevel,
       goal,
@@ -148,12 +153,12 @@ export default function HomePage() {
                 <button
                   key={p}
                   type="button"
-                  onClick={() => setBudget(p)}
+                  onClick={() => setBudget(String(p))}
                   className="px-4 py-2 rounded text-sm font-medium transition-colors"
                   style={{
-                    background: budget === p ? 'var(--accent)' : 'var(--surface)',
-                    color: budget === p ? '#fff' : 'var(--text)',
-                    border: `1px solid ${budget === p ? 'var(--accent)' : 'var(--border)'}`,
+                    background: budgetNum === p ? 'var(--accent)' : 'var(--surface)',
+                    color: budgetNum === p ? '#fff' : 'var(--text)',
+                    border: `1px solid ${budgetNum === p ? 'var(--accent)' : 'var(--border)'}`,
                   }}
                 >
                   ${p}
@@ -167,7 +172,7 @@ export default function HomePage() {
                 min={20}
                 max={500}
                 value={budget}
-                onChange={e => setBudget(Number(e.target.value))}
+                onChange={e => setBudget(e.target.value)}
                 className="w-32 px-3 py-2 rounded text-sm"
                 style={{ background: 'var(--surface)', border: '1px solid var(--border)', color: 'var(--text)' }}
               />
@@ -185,7 +190,7 @@ export default function HomePage() {
                 <label className="block text-xs mb-1" style={{ color: 'var(--text-muted)' }}>Age</label>
                 <input
                   type="number" min={14} max={100} value={age}
-                  onChange={e => setAge(Number(e.target.value))}
+                  onChange={e => setAge(e.target.value)}
                   className="w-full px-3 py-2 rounded text-sm"
                   style={{ background: 'var(--surface)', border: '1px solid var(--border)', color: 'var(--text)' }}
                 />
@@ -213,7 +218,7 @@ export default function HomePage() {
                 <label className="block text-xs mb-1" style={{ color: 'var(--text-muted)' }}>Weight (lbs)</label>
                 <input
                   type="number" min={80} max={500} value={weightLbs}
-                  onChange={e => setWeightLbs(Number(e.target.value))}
+                  onChange={e => setWeightLbs(e.target.value)}
                   className="w-full px-3 py-2 rounded text-sm"
                   style={{ background: 'var(--surface)', border: '1px solid var(--border)', color: 'var(--text)' }}
                 />
@@ -223,14 +228,14 @@ export default function HomePage() {
                 <div className="flex gap-2 items-center">
                   <input
                     type="number" min={3} max={7} value={heightFt}
-                    onChange={e => setHeightFt(Number(e.target.value))}
+                    onChange={e => setHeightFt(e.target.value)}
                     className="w-16 px-3 py-2 rounded text-sm"
                     style={{ background: 'var(--surface)', border: '1px solid var(--border)', color: 'var(--text)' }}
                   />
                   <span className="text-xs" style={{ color: 'var(--text-muted)' }}>ft</span>
                   <input
                     type="number" min={0} max={11} value={heightIn}
-                    onChange={e => setHeightIn(Number(e.target.value))}
+                    onChange={e => setHeightIn(e.target.value)}
                     className="w-16 px-3 py-2 rounded text-sm"
                     style={{ background: 'var(--surface)', border: '1px solid var(--border)', color: 'var(--text)' }}
                   />
@@ -351,7 +356,7 @@ export default function HomePage() {
             >
               <div>
                 <div className="text-xs mb-0.5" style={{ color: 'var(--text-muted)', fontFamily: 'DM Mono, monospace' }}>BUDGET</div>
-                <div style={{ color: 'var(--accent)' }} className="font-semibold">${budget}/week</div>
+                <div style={{ color: 'var(--accent)' }} className="font-semibold">${budgetNum}/week</div>
               </div>
               <div>
                 <div className="text-xs mb-0.5" style={{ color: 'var(--text-muted)', fontFamily: 'DM Mono, monospace' }}>CALORIES</div>
