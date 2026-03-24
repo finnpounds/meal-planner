@@ -47,8 +47,12 @@ The JSON structure must be exactly:
 }
 
 Rules:
-- Ingredients MUST include quantities with units (e.g., "2 lbs chicken breast", "1 can black beans", "3 eggs")
-- Cost is the per-serving ingredient cost in USD, calculated from the price table above
+- Ingredients MUST include quantities with units (e.g., "6 oz chicken breast", "1 can black beans", "2 eggs")
+- Use realistic adult portion sizes: 5-8 oz for proteins, 1 cup for grains/legumes, 1-2 cups for vegetables
+- ALWAYS include cooking fat (e.g., "1 tbsp olive oil" or "1 tbsp butter") in every cooked recipe
+- ALWAYS include at least 3 seasonings or aromatics per savory recipe (e.g., "1 tsp garlic powder", "0.5 tsp cumin", "1 clove garlic")
+- cost is the total ingredient cost in USD for one serving of this meal, using the per-use prices above for oils and spices
+- Include ALL ingredients in the cost — protein, produce, grains, AND cooking fat and seasonings
 - Macros are in grams, calories in kcal
 - Reuse ingredients across the week to reduce waste and stay under budget
 - Prefer whole foods and recipes under 30 minutes for weekday meals`;

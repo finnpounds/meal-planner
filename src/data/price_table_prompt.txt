@@ -14,8 +14,12 @@ DAIRY & EGGS: eggs large $2.58/dozen | milk whole $4.03/gallon | milk low-fat $3
 
 GRAINS & BREAD: rice white $1.07/lb | rice brown $1.42/lb | pasta $1.32/lb | bread white $1.85/lb | bread whole wheat $2.69/lb | flour $0.55/lb | oats $1.95/lb | quinoa $4.20/lb | tortillas flour $3.25/pkg | tortillas corn $2.45/pkg
 
-PANTRY: olive oil $8.50/17oz | vegetable oil $4.95/48oz | sesame oil $4.25/8oz | soy sauce $3.15/15oz | vinegar $2.85/32oz | sugar $1.02/lb | honey $5.60/12oz | peanut butter $4.25/16oz | tomato paste $1.10/6oz can | coconut milk canned $2.35/13.5oz | tahini $5.50/16oz | chicken broth $2.45/32oz | salsa $3.50/16oz | hot sauce $3.75/bottle | maple syrup $9.50/12oz
+PANTRY (bulk prices): olive oil $8.50/17oz | vegetable oil $4.95/48oz | sesame oil $4.25/8oz | soy sauce $3.15/15oz | vinegar $2.85/32oz | sugar $1.02/lb | honey $5.60/12oz | peanut butter $4.25/16oz | tomato paste $1.10/6oz can | coconut milk canned $2.35/13.5oz | tahini $5.50/16oz | chicken broth $2.45/32oz | salsa $3.50/16oz | hot sauce $3.75/bottle | maple syrup $9.50/12oz
 
-HERBS & AROMATICS: garlic $5.80/lb | ginger $5.50/lb | cilantro $0.85/bunch | parsley $1.10/bunch | basil fresh $2.50/pkg | green onions $1.10/bunch | lemons $1.96/lb | limes $1.70/lb
+PANTRY (per-use costs for recipe costing): olive oil $0.18/tbsp | vegetable oil $0.07/tbsp | butter $0.14/tbsp | sesame oil $0.29/tbsp | soy sauce $0.08/tbsp | vinegar $0.05/tbsp | honey $0.26/tbsp | sugar $0.03/tbsp | flour $0.02/tbsp | tomato paste $0.11/tbsp | coconut milk $0.18/tbsp | chicken broth $0.08/tbsp
+
+SPICES & SEASONINGS (per-use costs): salt $0.01/tsp | black pepper $0.04/tsp | garlic powder $0.05/tsp | onion powder $0.04/tsp | cumin $0.06/tsp | paprika $0.05/tsp | chili powder $0.05/tsp | oregano $0.05/tsp | thyme $0.06/tsp | basil dried $0.06/tsp | cayenne $0.05/tsp | cinnamon $0.05/tsp | turmeric $0.06/tsp | red pepper flakes $0.05/tsp | Italian seasoning $0.05/tsp | curry powder $0.07/tsp | smoked paprika $0.06/tsp | bay leaf $0.05/leaf
+
+HERBS & AROMATICS: garlic $5.80/lb | garlic clove $0.10/clove | ginger $5.50/lb | cilantro $0.85/bunch | parsley $1.10/bunch | basil fresh $2.50/pkg | green onions $1.10/bunch | lemons $1.96/lb | lemon $0.50/each | limes $1.70/lb | lime $0.35/each
 
 PLANT PROTEIN: tofu $2.50/lb | tempeh $5.30/lb | edamame frozen $3.25/lb

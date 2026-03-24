@@ -12,6 +12,26 @@ import type { GeneratePlanResponse, MealPlan, UserInputs, ValidationResult, DayN
 const DAYS: DayName[] = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 const MEALS = ['breakfast', 'lunch', 'dinner', 'snack'] as const;
 
+// Pantry overhead per cooked meal: accounts for salt, pepper, oil, spices not explicitly listed
+const PANTRY_OVERHEAD = 0.60;
+// Calibration multiplier: LLMs systematically undershoot real grocery costs ~20-25%
+const COST_CALIBRATION = 1.25;
+
+/** Apply pantry overhead and calibration multiplier to all meal costs in-place */
+function calibrateCosts(plan: MealPlan): void {
+  for (const day of DAYS) {
+    const dayPlan = plan[day];
+    if (!dayPlan) continue;
+    for (const meal of MEALS) {
+      const m = dayPlan[meal];
+      if (!m) continue;
+      const isSnack = meal === 'snack';
+      const overhead = isSnack ? PANTRY_OVERHEAD * 0.25 : PANTRY_OVERHEAD;
+      m.cost = Math.round((m.cost * COST_CALIBRATION + overhead) * 100) / 100;
+    }
+  }
+}
+
 function buildUserPrompt(inputs: UserInputs, calories: number, protein: number, carbs: number, fat: number): string {
   const prefStr = inputs.dietaryPrefs.length > 0 ? inputs.dietaryPrefs.join(', ') : 'No restrictions';
   const goalLabel = inputs.goal === 'lose' ? 'weight loss' : inputs.goal === 'gain' ? 'muscle gain' : 'weight maintenance';
@@ -122,6 +142,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Could not parse meal plan JSON from LLM response' }, { status: 502 });
   }
 
+  calibrateCosts(plan);
   const validation = validatePlanCosts(plan);
 
   const response: GeneratePlanResponse = {
