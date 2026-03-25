@@ -196,8 +196,13 @@ const FIXED: Record<string, number> = { dozen:4.95,doz:4.95,bunch:1.10,can:1.50,
 const ITEM_WT: Record<string, number> = { egg:0.125,banana:0.25,apple:0.44,orange:0.44,lemon:0.25,lime:0.15,avocado:0.44,potato:0.5,onion:0.5,tomato:0.44,carrot:0.17,cucumber:0.5,zucchini:0.5,'bell pepper':0.5,'sweet potato':0.5 };
 
 function parseAmt(s: string): number {
-  let str = s;
-  for (const [f, v] of Object.entries(FRAC)) str = str.replace(f, String(v));
+  let str = s.trim();
+  // Handle mixed whole+fraction ("1½" → "1.5") before standalone fractions ("½" → "0.5")
+  // Without this, "1½".replace("½","0.5") → "10.5" instead of "1.5"
+  for (const [f, v] of Object.entries(FRAC)) {
+    str = str.replace(new RegExp(`(\\d+)${f}`), (_, d) => String(parseInt(d) + v));
+    str = str.replace(f, String(v));
+  }
   return str.includes('/') ? parseFloat(str.split('/')[0]) / parseFloat(str.split('/')[1]) : parseFloat(str);
 }
 
@@ -228,8 +233,11 @@ export function estimateIngredientCost(ingredientStr: string): number {
   if ((u === 'pint' || u === 'pt') && info.unit?.includes('pint')) return Math.round(amt * info.price * 100) / 100;
 
   if (FIXED[u]) {
-    const p = (info.unit?.includes(u) || info.unit?.includes('bunch') || info.unit?.includes('can') || info.unit?.includes('package') || info.unit?.includes('bottle'))
-      ? info.price : FIXED[u];
+    // Only inherit info.price when the lookup unit directly matches the query unit
+    // (e.g., asking for "bunch" and entry is "per bunch", or "can" and "per can").
+    // Bottle/jar-priced items (olive oil, soy sauce, sriracha) must use the FIXED
+    // per-use cost when queried by tbsp or tsp — otherwise 1 tbsp olive oil = $8.50.
+    const p = info.unit?.includes(u) ? info.price : FIXED[u];
     return Math.round(amt * p * 100) / 100;
   }
 

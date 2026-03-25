@@ -46,7 +46,11 @@ function parseQty(raw: string): { amount: number; unit: string } | null {
   const m = raw.trim().match(QTY_PARSE_RE);
   if (!m || !m[1]) return null;
   let amtStr = m[1];
-  for (const [sym, val] of Object.entries(FRAC_MAP)) amtStr = amtStr.replace(sym, String(val));
+  // Handle mixed whole+fraction: "1½" → "1.5" before standalone "½" → "0.5"
+  for (const [sym, val] of Object.entries(FRAC_MAP)) {
+    amtStr = amtStr.replace(new RegExp(`(\\d+)${sym}`), (_, d) => String(parseInt(d) + val));
+    amtStr = amtStr.replace(sym, String(val));
+  }
   const amount = amtStr.includes('/')
     ? parseFloat(amtStr.split('/')[0]) / parseFloat(amtStr.split('/')[1])
     : parseFloat(amtStr);

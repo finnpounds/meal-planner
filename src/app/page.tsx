@@ -170,6 +170,11 @@ export default function HomePage() {
               />
               <span className="text-sm" style={{ color: 'var(--text-muted)' }}>per week</span>
             </div>
+            {budgetNum > 0 && budgetNum < 40 && (
+              <p className="text-xs mt-2" style={{ color: '#e8a870' }}>
+                Under $40/week makes it hard to generate realistic meals for one adult.
+              </p>
+            )}
           </section>
 
           {/* Biometrics */}

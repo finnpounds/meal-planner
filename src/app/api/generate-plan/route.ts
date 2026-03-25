@@ -92,13 +92,35 @@ function validatePlanCosts(plan: MealPlan): ValidationResult {
 }
 
 // Keyword map for dietary restriction violation detection
+// Keywords use word-boundary matching to avoid false positives (e.g., "egg" vs "eggplant")
 const DIETARY_KEYWORDS: Record<string, string[]> = {
-  'Vegetarian': ['chicken', 'beef', 'pork', 'turkey', 'salmon', 'tuna', 'shrimp', 'tilapia', 'cod', 'lamb', 'bacon', 'ham', 'sausage', 'anchov', 'pepperoni', 'prosciutto', 'lard', 'gelatin'],
+  'Vegetarian': ['chicken', 'beef', 'pork', 'turkey', 'salmon', 'tuna', 'shrimp', 'tilapia', 'cod', 'lamb', 'bacon', 'ham', 'sausage', 'anchov', 'pepperoni', 'prosciutto', 'lard', 'gelatin', 'worcestershire'],
   'Vegan': ['chicken', 'beef', 'pork', 'turkey', 'salmon', 'tuna', 'shrimp', 'tilapia', 'cod', 'lamb', 'bacon', 'ham', 'sausage', 'egg', 'milk', 'butter', 'cheese', 'yogurt', 'cream', 'honey', 'whey', 'casein', 'ghee'],
-  'Gluten-Free': ['wheat', 'flour', 'bread', 'pasta', 'spaghetti', 'noodle', 'tortilla', 'cracker', 'barley', 'rye', 'couscous', 'seitan', 'soy sauce', 'panko', 'breadcrumb'],
+  'Gluten-Free': ['wheat', 'flour', 'bread', 'pasta', 'spaghetti', 'noodle', 'flour tortilla', 'cracker', 'barley', 'rye', 'couscous', 'seitan', 'soy sauce', 'panko', 'breadcrumb'],
   'Dairy-Free': ['milk', 'butter', 'cheese', 'yogurt', 'cream', 'mozzarella', 'parmesan', 'feta', 'cheddar', 'cottage', 'sour cream', 'ghee', 'whey', 'casein', 'lactose'],
   'Nut-Free': ['almond', 'walnut', 'cashew', 'pecan', 'peanut', 'pistachio', 'hazelnut', 'macadamia', 'pine nut', 'nut butter', 'tahini'],
 };
+
+// Compound strings that contain a keyword but are NOT violations
+const FALSE_POSITIVE_CONTEXTS: Record<string, string[]> = {
+  'egg':      ['eggplant', 'egg noodle'],
+  'ham':      ['hamburger'],
+  'milk':     ['coconut milk', 'oat milk', 'almond milk', 'soy milk', 'cashew milk', 'rice milk', 'hemp milk', 'macadamia milk'],
+  'butter':   ['almond butter', 'peanut butter', 'cashew butter', 'nut butter', 'seed butter', 'cocoa butter'],
+  'cream':    ['coconut cream', 'cream of tartar'],
+  'tortilla': ['corn tortilla'],
+  'flour':    ['rice flour', 'almond flour', 'coconut flour', 'tapioca flour', 'chickpea flour', 'oat flour'],
+};
+
+function checkKeywordViolation(lower: string, restriction: string, keywords: string[]): string | undefined {
+  return keywords.find(kw => {
+    if (!lower.includes(kw)) return false;
+    // Exclude known false positive compound strings (e.g. "eggplant" for "egg")
+    const falseContexts = FALSE_POSITIVE_CONTEXTS[kw] ?? [];
+    if (falseContexts.some(ctx => lower.includes(ctx))) return false;
+    return true;
+  });
+}
 
 function validateDietaryRestrictions(
   plan: MealPlan,
@@ -118,7 +140,7 @@ function validateDietaryRestrictions(
         const keywords = DIETARY_KEYWORDS[restriction];
         for (const ing of m.ingredients) {
           const lower = ing.toLowerCase();
-          const matched = keywords.find(kw => lower.includes(kw));
+          const matched = checkKeywordViolation(lower, restriction, keywords);
           if (matched) {
             violations.push({ day, mealType: meal, mealName: m.name, ingredient: ing, restriction });
           }
