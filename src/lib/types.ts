@@ -37,6 +37,10 @@ export interface Meal {
   carbs: number;
   fat: number;
   cost: number;
+  // Optional enrichment fields -- absent in older session data
+  instructions?: string[];
+  cookTimeMinutes?: number;
+  servings?: number;
 }
 
 export interface DayPlan {
@@ -67,10 +71,21 @@ export interface ValidationResult {
     deviationPct: number;
   }>;
   score: number; // 0-100, percent within 20% threshold
+  dietaryViolations?: Array<{
+    day: string;
+    mealType: string;
+    mealName: string;
+    ingredient: string;
+    restriction: string;
+  }>;
 }
 
 export interface GeneratePlanResponse {
   plan: MealPlan;
   validation: ValidationResult;
   nutritionTarget: NutritionTarget;
+}
+
+export interface GenerateMealResponse {
+  meal: Meal;
 }

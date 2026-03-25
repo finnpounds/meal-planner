@@ -91,6 +91,44 @@ function validatePlanCosts(plan: MealPlan): ValidationResult {
   return { totalIngredients, validatedCount, deviations, score };
 }
 
+// Keyword map for dietary restriction violation detection
+const DIETARY_KEYWORDS: Record<string, string[]> = {
+  'Vegetarian': ['chicken', 'beef', 'pork', 'turkey', 'salmon', 'tuna', 'shrimp', 'tilapia', 'cod', 'lamb', 'bacon', 'ham', 'sausage', 'anchov', 'pepperoni', 'prosciutto', 'lard', 'gelatin'],
+  'Vegan': ['chicken', 'beef', 'pork', 'turkey', 'salmon', 'tuna', 'shrimp', 'tilapia', 'cod', 'lamb', 'bacon', 'ham', 'sausage', 'egg', 'milk', 'butter', 'cheese', 'yogurt', 'cream', 'honey', 'whey', 'casein', 'ghee'],
+  'Gluten-Free': ['wheat', 'flour', 'bread', 'pasta', 'spaghetti', 'noodle', 'tortilla', 'cracker', 'barley', 'rye', 'couscous', 'seitan', 'soy sauce', 'panko', 'breadcrumb'],
+  'Dairy-Free': ['milk', 'butter', 'cheese', 'yogurt', 'cream', 'mozzarella', 'parmesan', 'feta', 'cheddar', 'cottage', 'sour cream', 'ghee', 'whey', 'casein', 'lactose'],
+  'Nut-Free': ['almond', 'walnut', 'cashew', 'pecan', 'peanut', 'pistachio', 'hazelnut', 'macadamia', 'pine nut', 'nut butter', 'tahini'],
+};
+
+function validateDietaryRestrictions(
+  plan: MealPlan,
+  dietaryPrefs: string[]
+): NonNullable<ValidationResult['dietaryViolations']> {
+  const violations: NonNullable<ValidationResult['dietaryViolations']> = [];
+  const activeRestrictions = dietaryPrefs.filter(p => p in DIETARY_KEYWORDS);
+  if (activeRestrictions.length === 0) return violations;
+
+  for (const day of DAYS) {
+    const d = plan[day];
+    if (!d) continue;
+    for (const meal of MEALS) {
+      const m = d[meal];
+      if (!m?.ingredients?.length) continue;
+      for (const restriction of activeRestrictions) {
+        const keywords = DIETARY_KEYWORDS[restriction];
+        for (const ing of m.ingredients) {
+          const lower = ing.toLowerCase();
+          const matched = keywords.find(kw => lower.includes(kw));
+          if (matched) {
+            violations.push({ day, mealType: meal, mealName: m.name, ingredient: ing, restriction });
+          }
+        }
+      }
+    }
+  }
+  return violations;
+}
+
 /** Validate that the parsed plan has the expected shape */
 function validatePlanShape(plan: unknown): plan is MealPlan {
   if (typeof plan !== 'object' || plan === null) return false;
@@ -142,6 +180,9 @@ export async function POST(req: NextRequest) {
 
   // Validate raw LLM costs BEFORE calibration -- measures LLM accuracy, not our post-processed number
   const validation = validatePlanCosts(plan);
+  // Scan for dietary restriction violations on raw plan
+  const dietaryViolations = validateDietaryRestrictions(plan, inputs.dietaryPrefs);
+  if (dietaryViolations.length > 0) validation.dietaryViolations = dietaryViolations;
   calibrateCosts(plan);
 
   const response: GeneratePlanResponse = {

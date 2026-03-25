@@ -21,6 +21,8 @@ export default function PlanPage() {
   const [regenerating, setRegenerating] = useState(false);
   const [regenMsg, setRegenMsg] = useState('');
   const [regenError, setRegenError] = useState('');
+  const [swappingMeal, setSwappingMeal] = useState<string | null>(null);
+  const [swapError, setSwapError] = useState('');
 
   useEffect(() => {
     if (!result) router.replace('/');
@@ -40,6 +42,30 @@ export default function PlanPage() {
 
   const { plan, validation, nutritionTarget } = result;
   const dayPlan = plan[activeDay];
+
+  async function handleSwapMeal(day: DayName, mealType: string) {
+    if (!lastInputs || !result) return;
+    const slotKey = `${day}-${mealType}`;
+    setSwapError('');
+    setSwappingMeal(slotKey);
+    try {
+      const res = await fetch('/api/regenerate-meal', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ mealType, day, inputs: lastInputs, currentPlan: result.plan }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error ?? 'Failed to swap meal');
+      setResult({
+        ...result,
+        plan: { ...result.plan, [day]: { ...result.plan[day], [mealType]: data.meal } },
+      });
+    } catch (err) {
+      setSwapError(err instanceof Error ? err.message : 'Swap failed');
+    } finally {
+      setSwappingMeal(null);
+    }
+  }
 
   async function handleRegenerate() {
     if (!lastInputs) return;
@@ -122,6 +148,28 @@ export default function PlanPage() {
           </div>
         )}
 
+        {/* Dietary violation warning */}
+        {validation.dietaryViolations && validation.dietaryViolations.length > 0 && (
+          <div
+            className="rounded p-3 text-sm mb-4"
+            style={{ background: '#2a1f10', border: '1px solid #8f6030', color: '#e8a870' }}
+          >
+            <div className="font-medium mb-1">
+              {validation.dietaryViolations.length} possible dietary conflict{validation.dietaryViolations.length > 1 ? 's' : ''} detected
+            </div>
+            <ul className="space-y-0.5 text-xs" style={{ color: '#c8905a' }}>
+              {validation.dietaryViolations.slice(0, 5).map((v, i) => (
+                <li key={i}>
+                  {v.day} {v.mealType} &mdash; &quot;{v.ingredient}&quot; may conflict with {v.restriction}
+                </li>
+              ))}
+              {validation.dietaryViolations.length > 5 && (
+                <li>...and {validation.dietaryViolations.length - 5} more</li>
+              )}
+            </ul>
+          </div>
+        )}
+
         {/* Weekly summary */}
         <div className="mb-6">
           <WeeklySummary
@@ -164,6 +212,8 @@ export default function PlanPage() {
                       mealType={mealType}
                       meal={meal}
                       nutritionTarget={nutritionTarget}
+                      onSwap={() => handleSwapMeal(activeDay, mealType)}
+                      swapping={swappingMeal === `${activeDay}-${mealType}`}
                     />
                   );
                 })}
@@ -171,6 +221,14 @@ export default function PlanPage() {
             ) : (
               <div className="text-sm py-8 text-center" style={{ color: 'var(--text-muted)' }}>
                 No plan data for {activeDay}.
+              </div>
+            )}
+            {swapError && (
+              <div
+                className="rounded p-3 text-sm mt-2"
+                style={{ background: '#2a1515', border: '1px solid var(--danger)', color: '#e87070' }}
+              >
+                Swap failed: {swapError}
               </div>
             )}
           </div>

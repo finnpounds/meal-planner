@@ -30,6 +30,44 @@ function normalizeIngredient(raw: string): string {
     .trim();
 }
 
+// Quantity parsing for aggregated display (e.g., "~24 oz" instead of "4x")
+const UNIT_CANONICAL: Record<string, string> = {
+  oz: 'oz', ounce: 'oz', ounces: 'oz',
+  lb: 'lb', lbs: 'lb', pound: 'lb', pounds: 'lb',
+  cup: 'cup', cups: 'cup',
+  tbsp: 'tbsp', tsp: 'tsp',
+  g: 'g', gram: 'g', grams: 'g',
+  kg: 'kg',
+};
+const QTY_PARSE_RE = /^([\d./½¼¾⅓⅔]+)\s*(oz|ounces?|lbs?|pounds?|cups?|tbsp|tsp|g|grams?|kg)?/i;
+const FRAC_MAP: Record<string, number> = { '½': 0.5, '¼': 0.25, '¾': 0.75, '⅓': 0.333, '⅔': 0.667 };
+
+function parseQty(raw: string): { amount: number; unit: string } | null {
+  const m = raw.trim().match(QTY_PARSE_RE);
+  if (!m || !m[1]) return null;
+  let amtStr = m[1];
+  for (const [sym, val] of Object.entries(FRAC_MAP)) amtStr = amtStr.replace(sym, String(val));
+  const amount = amtStr.includes('/')
+    ? parseFloat(amtStr.split('/')[0]) / parseFloat(amtStr.split('/')[1])
+    : parseFloat(amtStr);
+  if (isNaN(amount)) return null;
+  const rawUnit = (m[2] ?? '').toLowerCase().replace(/s$/, '');
+  const unit = UNIT_CANONICAL[rawUnit] ?? '';
+  return { amount, unit };
+}
+
+function formatQtySummary(rawInstances: string[]): string {
+  const parsed = rawInstances.map(r => parseQty(r));
+  const allParsed = parsed.every(p => p !== null);
+  if (!allParsed) return `${rawInstances.length}x`;
+  const units = [...new Set(parsed.map(p => p!.unit))].filter(Boolean);
+  // Mixed units or no recognized unit -- fall back to count
+  if (units.length !== 1) return `${rawInstances.length}x`;
+  const total = parsed.reduce((sum, p) => sum + p!.amount, 0);
+  const rounded = Math.round(total * 4) / 4; // nearest 0.25
+  return `~${rounded} ${units[0]}`;
+}
+
 interface GroceryItem {
   displayName: string;
   normalized: string;
@@ -197,7 +235,7 @@ export function GroceryList({ plan }: GroceryListProps) {
                         className="text-xs px-1.5 py-0.5 rounded"
                         style={{ background: 'var(--surface-2)', color: 'var(--text-muted)', fontFamily: 'DM Mono, monospace' }}
                       >
-                        {item.count}x
+                        {formatQtySummary(item.rawInstances)}
                       </span>
                     </div>
                   </button>

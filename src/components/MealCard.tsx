@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { MacroRing } from './MacroRing';
+import { Spinner } from './Spinner';
 import type { Meal, NutritionTarget } from '@/lib/types';
 
 const MEAL_ICONS: Record<string, string> = {
@@ -15,12 +16,13 @@ interface MealCardProps {
   mealType: string;
   meal: Meal;
   nutritionTarget: NutritionTarget;
+  onSwap?: () => void;
+  swapping?: boolean;
 }
 
-export function MealCard({ mealType, meal, nutritionTarget }: MealCardProps) {
+export function MealCard({ mealType, meal, nutritionTarget, onSwap, swapping }: MealCardProps) {
   const [expanded, setExpanded] = useState(false);
 
-  // Rings show how much of the daily target this meal covers (not a /4 split)
   const proteinTarget = nutritionTarget.proteinG;
   const carbsTarget = nutritionTarget.carbsG;
   const fatTarget = nutritionTarget.fatG;
@@ -37,19 +39,47 @@ export function MealCard({ mealType, meal, nutritionTarget }: MealCardProps) {
         <div className="flex items-center gap-3">
           <span className="text-base">{MEAL_ICONS[mealType] ?? '🍽️'}</span>
           <div>
-            <div className="text-xs mb-0.5 capitalize" style={{ color: 'var(--text-muted)', fontFamily: 'DM Mono, monospace' }}>
+            <div className="text-xs mb-0.5 capitalize flex items-center gap-2" style={{ color: 'var(--text-muted)', fontFamily: 'DM Mono, monospace' }}>
               {mealType}
+              {meal.cookTimeMinutes != null && meal.cookTimeMinutes > 0 && (
+                <span
+                  className="px-1.5 py-0.5 rounded"
+                  style={{ background: 'var(--surface-2)', fontSize: '0.6rem' }}
+                >
+                  {meal.cookTimeMinutes} min
+                </span>
+              )}
             </div>
             <div className="text-sm font-medium" style={{ color: 'var(--text)' }}>
               {meal.name}
             </div>
           </div>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2">
           <div className="text-right hidden sm:block">
             <div className="text-xs" style={{ color: 'var(--text-muted)' }}>{meal.calories} kcal</div>
             <div className="text-sm font-medium" style={{ color: 'var(--accent)' }}>${meal.cost.toFixed(2)}</div>
           </div>
+          {onSwap && (
+            <button
+              onClick={e => { e.stopPropagation(); onSwap(); }}
+              disabled={swapping}
+              className="text-xs px-2 py-1 rounded transition-colors disabled:opacity-50"
+              style={{
+                background: 'var(--surface-2)',
+                border: '1px solid var(--border)',
+                color: 'var(--text-muted)',
+                cursor: swapping ? 'not-allowed' : 'pointer',
+              }}
+              title="Swap this meal"
+            >
+              {swapping ? (
+                <span className="flex items-center gap-1">
+                  <Spinner size={2} />
+                </span>
+              ) : '↺'}
+            </button>
+          )}
           <svg
             className="w-4 h-4 transition-transform"
             style={{ transform: expanded ? 'rotate(180deg)' : 'rotate(0deg)', color: 'var(--text-muted)' }}
@@ -67,6 +97,25 @@ export function MealCard({ mealType, meal, nutritionTarget }: MealCardProps) {
               {meal.description}
             </p>
           </div>
+
+          {/* Instructions */}
+          {meal.instructions && meal.instructions.length > 0 && (
+            <div>
+              <div className="text-xs mb-2" style={{ color: 'var(--text-muted)', fontFamily: 'DM Mono, monospace' }}>
+                INSTRUCTIONS
+              </div>
+              <ol className="space-y-1.5">
+                {meal.instructions.map((step, i) => (
+                  <li key={i} className="flex gap-2 text-sm">
+                    <span className="flex-shrink-0 text-xs pt-0.5 w-4" style={{ color: 'var(--text-muted)', fontFamily: 'DM Mono, monospace' }}>
+                      {i + 1}.
+                    </span>
+                    <span style={{ color: 'var(--text)', lineHeight: '1.5' }}>{step}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          )}
 
           {/* Macros */}
           <div>

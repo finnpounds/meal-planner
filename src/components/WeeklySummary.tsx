@@ -43,6 +43,34 @@ export function WeeklySummary({ plan, budget, nutritionTarget, validation }: Wee
     dailyCals[day] = dayCals;
   }
 
+  // Ingredient overlap: % of unique ingredients reused in 2+ meals across the week
+  const ingredientMealCount = new Map<string, number>();
+  for (const day of DAYS) {
+    const d = plan[day];
+    if (!d) continue;
+    for (const meal of MEALS) {
+      const m = d[meal];
+      if (!m?.ingredients) continue;
+      const seen = new Set<string>();
+      for (const ing of m.ingredients) {
+        const norm = ing.toLowerCase()
+          .replace(/^[\d./½¼¾⅓⅔\s]+(lbs?|oz|cups?|g|tbsp|tsp|cloves?|cans?|each|medium|large|small)?\s+/i, '')
+          .replace(/^of\s+/, '')
+          .replace(/[,.]$/, '')
+          .trim();
+        if (norm && !seen.has(norm)) {
+          seen.add(norm);
+          ingredientMealCount.set(norm, (ingredientMealCount.get(norm) ?? 0) + 1);
+        }
+      }
+    }
+  }
+  const totalUniqueIngredients = ingredientMealCount.size;
+  const sharedIngredients = [...ingredientMealCount.values()].filter(c => c >= 2).length;
+  const overlapScore = totalUniqueIngredients > 0
+    ? Math.round((sharedIngredients / totalUniqueIngredients) * 100)
+    : 0;
+
   const avgCalsPerDay = Math.round(totalCals / 7);
   const avgProteinPerDay = Math.round(totalProtein / 7);
   const avgCarbsPerDay = Math.round(totalCarbs / 7);
@@ -82,7 +110,7 @@ export function WeeklySummary({ plan, budget, nutritionTarget, validation }: Wee
         </div>
       </div>
 
-      {/* Stats grid — 2x2 */}
+      {/* Stats grid — nutrition */}
       <div className="grid grid-cols-2 gap-3 text-center sm:grid-cols-4">
         {[
           { label: 'AVG CALS', value: String(avgCalsPerDay), sub: `target ${nutritionTarget.calories}` },
@@ -96,6 +124,23 @@ export function WeeklySummary({ plan, budget, nutritionTarget, validation }: Wee
             <div className="text-xs" style={{ color: 'var(--text-muted)' }}>{stat.sub}</div>
           </div>
         ))}
+      </div>
+
+      {/* Ingredient overlap score */}
+      <div className="rounded p-3" style={{ background: 'var(--surface-2)' }}>
+        <div className="flex items-center justify-between mb-1">
+          <div className="text-xs" style={{ color: 'var(--text-muted)', fontFamily: 'DM Mono, monospace' }}>INGREDIENT REUSE</div>
+          <div className="text-base font-semibold">{overlapScore}%</div>
+        </div>
+        <div className="h-1.5 rounded-full overflow-hidden" style={{ background: 'var(--border)' }}>
+          <div
+            className="h-full rounded-full"
+            style={{ width: `${overlapScore}%`, background: overlapScore >= 60 ? 'var(--accent)' : '#8f7a5e' }}
+          />
+        </div>
+        <div className="text-xs mt-1" style={{ color: 'var(--text-muted)' }}>
+          {sharedIngredients} of {totalUniqueIngredients} ingredients shared across 2+ meals
+        </div>
       </div>
 
       {/* Per-day calorie variance bars */}
