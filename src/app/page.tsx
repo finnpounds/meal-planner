@@ -53,7 +53,7 @@ export default function HomePage() {
 
   useEffect(() => {
     const t = calcTDEE({ weightLbs: weightNum, heightInches, age: ageNum, sex, activityLevel });
-    const c = calcCalorieTarget(t, goal);
+    const c = calcCalorieTarget(t, goal, sex);
     setTdee(t);
     setCalTarget(c);
   }, [weightNum, heightInches, ageNum, sex, activityLevel, goal]);

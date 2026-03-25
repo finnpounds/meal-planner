@@ -25,24 +25,28 @@ export function calcTDEE(inputs: Pick<UserInputs, 'weightLbs' | 'heightInches' |
   return Math.round(bmr * ACTIVITY_MULTIPLIERS[inputs.activityLevel]);
 }
 
-/** Calorie target adjusted for weight goal */
-export function calcCalorieTarget(tdee: number, goal: WeightGoal): number {
-  if (goal === 'lose') return Math.round(tdee - 500);
-  if (goal === 'gain') return Math.round(tdee + 300);
-  return tdee;
+/** Calorie target adjusted for weight goal, with a safe minimum floor */
+export function calcCalorieTarget(tdee: number, goal: WeightGoal, sex?: 'male' | 'female'): number {
+  let cal = tdee;
+  if (goal === 'lose') cal = tdee - 500;
+  else if (goal === 'gain') cal = tdee + 300;
+  // Minimum: 1200 kcal (female) / 1500 kcal (male) -- below these, nutrient deficiencies become likely
+  const floor = sex === 'female' ? 1200 : 1500;
+  return Math.round(Math.max(cal, floor));
 }
 
 /** Macro targets in grams based on calorie goal */
-export function calcMacros(calories: number, goal: WeightGoal): NutritionTarget {
-  // Protein: 0.8g * bodyweight implied; use % of calories
+export function calcMacros(calories: number, goal: WeightGoal, weightLbs?: number): NutritionTarget {
   // Lose: higher protein to preserve muscle (30% cal)
-  // Maintain: balanced (25% cal)
-  // Gain: moderate protein (25% cal), more carbs
+  // Maintain/Gain: balanced (25% cal)
   const proteinPct = goal === 'lose' ? 0.30 : 0.25;
   const fatPct = 0.30;
   const carbPct = 1 - proteinPct - fatPct;
 
-  const proteinG = Math.round((calories * proteinPct) / 4);
+  let proteinG = Math.round((calories * proteinPct) / 4);
+  // Floor: 0.7g per lb bodyweight -- standard muscle-preservation minimum
+  if (weightLbs) proteinG = Math.max(proteinG, Math.round(weightLbs * 0.7));
+
   const fatG = Math.round((calories * fatPct) / 9);
   const carbsG = Math.round((calories * carbPct) / 4);
 
@@ -52,6 +56,6 @@ export function calcMacros(calories: number, goal: WeightGoal): NutritionTarget 
 /** Compute full NutritionTarget from UserInputs */
 export function calcNutritionTarget(inputs: UserInputs): NutritionTarget {
   const tdee = calcTDEE(inputs);
-  const calories = calcCalorieTarget(tdee, inputs.goal);
-  return calcMacros(calories, inputs.goal);
+  const calories = calcCalorieTarget(tdee, inputs.goal, inputs.sex);
+  return calcMacros(calories, inputs.goal, inputs.weightLbs);
 }

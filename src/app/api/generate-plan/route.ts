@@ -140,8 +140,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Could not parse meal plan JSON from LLM response' }, { status: 502 });
   }
 
-  calibrateCosts(plan);
+  // Validate raw LLM costs BEFORE calibration -- measures LLM accuracy, not our post-processed number
   const validation = validatePlanCosts(plan);
+  calibrateCosts(plan);
 
   const response: GeneratePlanResponse = {
     plan,

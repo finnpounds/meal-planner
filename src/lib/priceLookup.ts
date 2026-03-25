@@ -214,7 +214,12 @@ export function estimateIngredientCost(ingredientStr: string): number {
   if (isNaN(amt)) amt = 1;
 
   const info = lookupPrice(ing);
-  if (!info) return Math.round(amt * 1.50 * 100) / 100;
+  if (!info) {
+    // Use per-use FIXED costs for small-quantity units (spices, condiments) instead of flat $1.50
+    const u = unit.replace(/s$/, '');
+    if (FIXED[u]) return Math.round(amt * FIXED[u] * 100) / 100;
+    return Math.round(amt * 1.50 * 100) / 100;
+  }
 
   const u = unit.replace(/s$/, '');
 
