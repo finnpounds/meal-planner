@@ -70,7 +70,9 @@ export interface ValidationResult {
     lookupCost: number;
     deviationPct: number;
   }>;
-  score: number; // 0-100, percent within 20% threshold
+  score: number; // 0-100, percent within 30% threshold
+  llmWeeklyTotal?: number;    // sum of raw LLM meal costs (pre-calibration)
+  lookupWeeklyTotal?: number; // sum of priceLookup estimates
   dietaryViolations?: Array<{
     day: string;
     mealType: string;

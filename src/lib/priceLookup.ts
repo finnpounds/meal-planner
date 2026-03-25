@@ -192,7 +192,20 @@ export function lookupPrice(ingredientName: string): (PriceEntry & { key: string
 const FRAC: Record<string, number> = { '½': 0.5, '¼': 0.25, '¾': 0.75, '⅓': 0.333, '⅔': 0.667 };
 const QTY_RE = /^([\d./½¼¾⅓⅔]+)\s*(lbs?|pounds?|oz|ounces?|cups?|g|grams?|kg|gallons?|gal|pints?|dozen|doz|bunch|cans?|packages?|pkg|bottles?|heads?|each|tbsp|tsp|cloves?|stalks?|slices?|medium|large|small)?(\s+|$)/;
 const LB: Record<string, number> = { lb:1,lbs:1,pound:1,pounds:1,oz:1/16,ounce:1/16,ounces:1/16,g:1/453.6,gram:1/453.6,grams:1/453.6,kg:2.205,cup:0.5,cups:0.5,gallon:8.6,gallons:8.6,gal:8.6,pint:1.04,pints:1.04 };
-const FIXED: Record<string, number> = { dozen:4.95,doz:4.95,bunch:1.10,can:1.50,cans:1.50,head:2.00,heads:2.00,package:3.50,packages:3.50,pkg:3.50,bottle:3.50,bottles:3.50,clove:0.25,cloves:0.25,stalk:0.40,stalks:0.40,tbsp:0.15,tsp:0.05,slice:0.30,slices:0.30 };
+const FIXED: Record<string, number> = { dozen:4.95,doz:4.95,bunch:1.10,can:1.50,cans:1.50,head:2.00,heads:2.00,package:3.50,packages:3.50,pkg:3.50,bottle:3.50,bottles:3.50,clove:0.10,cloves:0.10,stalk:0.40,stalks:0.40,tbsp:0.15,tsp:0.05,slice:0.30,slices:0.30 };
+// Density (lb per cup) for ingredients where the generic 0.5 lb/cup is far off.
+// Sources: USDA National Nutrient Database; recipe weight references.
+const VOLUME_DENSITY: Record<string, number> = {
+  'spinach': 0.062, 'baby spinach': 0.062,
+  'kale': 0.067,
+  'arugula': 0.062, 'mixed greens': 0.062, 'lettuce': 0.089, 'romaine': 0.089,
+  'broccoli': 0.198, 'broccoli florets': 0.198,
+  'cauliflower': 0.250, 'cauliflower florets': 0.250,
+  'mushrooms': 0.156, 'sliced mushrooms': 0.156,
+  'cabbage': 0.198, 'shredded cabbage': 0.198,
+  'peas': 0.330, 'frozen peas': 0.330,
+  'corn': 0.578, 'corn kernels': 0.578,
+};
 const ITEM_WT: Record<string, number> = { egg:0.125,banana:0.25,apple:0.44,orange:0.44,lemon:0.25,lime:0.15,avocado:0.44,potato:0.5,onion:0.5,tomato:0.44,carrot:0.17,cucumber:0.5,zucchini:0.5,'bell pepper':0.5,'sweet potato':0.5 };
 
 function parseAmt(s: string): number {
@@ -242,11 +255,20 @@ export function estimateIngredientCost(ingredientStr: string): number {
   }
 
   if (['each', 'medium', 'large', 'small'].includes(u)) {
+    // Eggs priced per dozen: use per-unit price rather than weight-based formula
+    if (info.unit?.includes('dozen')) return Math.round(amt * (info.price / 12) * 100) / 100;
     const w = ITEM_WT[ing] ?? ITEM_WT[ing.replace(/s$/, '')] ?? 0.5;
     return Math.round(amt * w * (info.price || 2) * 100) / 100;
   }
 
-  if (LB[u]) return Math.round(amt * LB[u] * (info.price || 2) * 100) / 100;
+  if (LB[u]) {
+    // For cups, use ingredient-specific density when available (leafy greens, broccoli, etc.)
+    if (u === 'cup' || u === 'cups') {
+      const density = VOLUME_DENSITY[ing] ?? VOLUME_DENSITY[ing.replace(/s$/, '')] ?? LB['cup'];
+      return Math.round(amt * density * (info.price || 2) * 100) / 100;
+    }
+    return Math.round(amt * LB[u] * (info.price || 2) * 100) / 100;
+  }
 
   return Math.round(amt * (info.price || 2) * 100) / 100;
 }

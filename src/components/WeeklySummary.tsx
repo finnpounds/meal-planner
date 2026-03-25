@@ -79,6 +79,32 @@ export function WeeklySummary({ plan, budget, nutritionTarget, validation }: Wee
 
   const maxDayCals = Math.max(...Object.values(dailyCals), 1);
 
+  const lookupTotal = validation.lookupWeeklyTotal ?? 0;
+  const llmTotal = validation.llmWeeklyTotal ?? 0;
+  const estimateDiffPct = lookupTotal > 0 ? Math.round(Math.abs(llmTotal - lookupTotal) / lookupTotal * 100) : null;
+  const estimatesAgree = estimateDiffPct != null && estimateDiffPct <= 20;
+  const costAgreementBlock = lookupTotal > 0 ? (
+    <div
+      className="text-xs px-3 py-2 rounded space-y-1"
+      style={{ background: 'var(--surface-2)', color: 'var(--text-muted)' }}
+    >
+      <div className="flex justify-between">
+        <span>LLM estimate</span>
+        <span style={{ color: 'var(--text)' }}>${llmTotal.toFixed(2)}</span>
+      </div>
+      <div className="flex justify-between">
+        <span>USDA/BLS lookup</span>
+        <span style={{ color: 'var(--text)' }}>${lookupTotal.toFixed(2)}</span>
+      </div>
+      <div className="flex justify-between pt-0.5" style={{ borderTop: '1px solid var(--border)' }}>
+        <span>Estimate agreement</span>
+        <span style={{ color: estimatesAgree ? 'var(--accent)' : '#e8a870' }}>
+          {estimatesAgree ? `within ${estimateDiffPct}%` : `${estimateDiffPct}% off`}
+        </span>
+      </div>
+    </div>
+  ) : null;
+
   return (
     <div
       className="rounded-lg p-5 space-y-5"
@@ -174,21 +200,30 @@ export function WeeklySummary({ plan, budget, nutritionTarget, validation }: Wee
         </div>
       </div>
 
-      {/* Data quality + validation */}
-      <div
-        className="text-xs px-3 py-2 rounded flex items-center gap-2 flex-wrap"
-        style={{ background: 'var(--surface-2)', color: 'var(--text-muted)' }}
-      >
-        <span style={{ color: validation.score >= 80 ? 'var(--accent)' : '#e8a870' }}>
-          {validation.score}%
-        </span>
-        prices validated against USDA ERS 2023 / BLS CPI Feb 2026
-        {validation.deviations.length > 0 && (
-          <span style={{ color: '#e8a870' }}>
-            &bull; {validation.deviations.length} meal(s) &gt;20% off
-          </span>
-        )}
+      {/* Cost efficiency stats (Option C) */}
+      <div className="grid grid-cols-2 gap-3 text-center">
+        {[
+          {
+            label: '$ / 1000 KCAL',
+            value: totalCals > 0 ? `$${(totalCost / totalCals * 1000).toFixed(2)}` : '--',
+            sub: 'weekly avg',
+          },
+          {
+            label: '$ / G PROTEIN',
+            value: totalProtein > 0 ? `$${(totalCost / totalProtein).toFixed(3)}` : '--',
+            sub: 'weekly avg',
+          },
+        ].map(stat => (
+          <div key={stat.label} className="rounded p-3" style={{ background: 'var(--surface-2)' }}>
+            <div className="text-xs mb-1" style={{ color: 'var(--text-muted)', fontFamily: 'DM Mono, monospace' }}>{stat.label}</div>
+            <div className="text-base font-semibold">{stat.value}</div>
+            <div className="text-xs" style={{ color: 'var(--text-muted)' }}>{stat.sub}</div>
+          </div>
+        ))}
       </div>
+
+      {/* Cost estimate agreement (Option B) */}
+      {costAgreementBlock}
 
       {/* Price source attribution */}
       <div className="text-xs" style={{ color: 'var(--text-muted)', fontFamily: 'DM Mono, monospace' }}>

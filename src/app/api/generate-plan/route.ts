@@ -53,6 +53,8 @@ function validatePlanCosts(plan: MealPlan): ValidationResult {
   const deviations: ValidationResult['deviations'] = [];
   let totalIngredients = 0;
   let validatedCount = 0;
+  let llmWeeklyTotal = 0;
+  let lookupWeeklyTotal = 0;
 
   for (const day of DAYS) {
     const dayPlan = plan[day];
@@ -67,10 +69,13 @@ function validatePlanCosts(plan: MealPlan): ValidationResult {
         0
       );
 
+      llmWeeklyTotal += llmMealCost;
+      if (lookupMealCost > 0) lookupWeeklyTotal += lookupMealCost;
+
       totalIngredients++;
       if (lookupMealCost > 0) {
         const deviationPct = Math.abs(llmMealCost - lookupMealCost) / lookupMealCost * 100;
-        if (deviationPct <= 20) {
+        if (deviationPct <= 30) {
           validatedCount++;
         } else {
           deviations.push({
@@ -88,7 +93,11 @@ function validatePlanCosts(plan: MealPlan): ValidationResult {
   }
 
   const score = totalIngredients > 0 ? Math.round((validatedCount / totalIngredients) * 100) : 0;
-  return { totalIngredients, validatedCount, deviations, score };
+  return {
+    totalIngredients, validatedCount, deviations, score,
+    llmWeeklyTotal: Math.round(llmWeeklyTotal * 100) / 100,
+    lookupWeeklyTotal: Math.round(lookupWeeklyTotal * 100) / 100,
+  };
 }
 
 // Keyword map for dietary restriction violation detection

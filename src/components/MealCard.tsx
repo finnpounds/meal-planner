@@ -32,13 +32,18 @@ export function MealCard({ mealType, meal, nutritionTarget, onSwap, swapping }: 
       className="rounded-lg overflow-hidden transition-all"
       style={{ background: 'var(--surface)', border: '1px solid var(--border)' }}
     >
-      <button
-        className="w-full flex items-center justify-between px-4 py-3 text-left"
-        onClick={() => setExpanded(e => !e)}
-      >
-        <div className="flex items-center gap-3">
+      {/* Header row -- outer div to avoid nested <button> (swap button is inside) */}
+      <div className="w-full flex items-center justify-between px-4 py-3">
+        {/* Clickable expand area */}
+        <div
+          className="flex items-center gap-3 flex-1 min-w-0 cursor-pointer text-left"
+          role="button"
+          tabIndex={0}
+          onClick={() => setExpanded(e => !e)}
+          onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setExpanded(v => !v); } }}
+        >
           <span className="text-base">{MEAL_ICONS[mealType] ?? '🍽️'}</span>
-          <div>
+          <div className="min-w-0">
             <div className="text-xs mb-0.5 capitalize flex items-center gap-2" style={{ color: 'var(--text-muted)', fontFamily: 'DM Mono, monospace' }}>
               {mealType}
               {meal.cookTimeMinutes != null && meal.cookTimeMinutes > 0 && (
@@ -50,19 +55,22 @@ export function MealCard({ mealType, meal, nutritionTarget, onSwap, swapping }: 
                 </span>
               )}
             </div>
-            <div className="text-sm font-medium" style={{ color: 'var(--text)' }}>
+            <div className="text-sm font-medium truncate" style={{ color: 'var(--text)' }}>
               {meal.name}
             </div>
           </div>
         </div>
-        <div className="flex items-center gap-2">
-          <div className="text-right hidden sm:block">
+        <div className="flex items-center gap-2 flex-shrink-0">
+          <div
+            className="text-right hidden sm:block cursor-pointer"
+            onClick={() => setExpanded(e => !e)}
+          >
             <div className="text-xs" style={{ color: 'var(--text-muted)' }}>{meal.calories} kcal</div>
             <div className="text-sm font-medium" style={{ color: 'var(--accent)' }}>${meal.cost.toFixed(2)}</div>
           </div>
           {onSwap && (
             <button
-              onClick={e => { e.stopPropagation(); onSwap(); }}
+              onClick={onSwap}
               disabled={swapping}
               className="text-xs px-2 py-1 rounded transition-colors disabled:opacity-50"
               style={{
@@ -73,22 +81,19 @@ export function MealCard({ mealType, meal, nutritionTarget, onSwap, swapping }: 
               }}
               title="Swap this meal"
             >
-              {swapping ? (
-                <span className="flex items-center gap-1">
-                  <Spinner size={2} />
-                </span>
-              ) : '↺'}
+              {swapping ? <Spinner size={2} /> : '↺'}
             </button>
           )}
           <svg
-            className="w-4 h-4 transition-transform"
+            className="w-4 h-4 transition-transform cursor-pointer"
             style={{ transform: expanded ? 'rotate(180deg)' : 'rotate(0deg)', color: 'var(--text-muted)' }}
             fill="none" viewBox="0 0 24 24" stroke="currentColor"
+            onClick={() => setExpanded(e => !e)}
           >
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
           </svg>
         </div>
-      </button>
+      </div>
 
       {expanded && (
         <div className="px-4 pb-4 space-y-4" style={{ borderTop: '1px solid var(--border)' }}>
